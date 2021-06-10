@@ -38,6 +38,7 @@ public class CSActivity extends AppCompatActivity {
             switch (v.getId()) {
                 case R.id.btn_server:
                     intent = new Intent(CSActivity.this, ServerActivity.class);
+                    
                     break;
                 case R.id.btn_client:
                     intent = new Intent(CSActivity.this, ClientActivity.class);

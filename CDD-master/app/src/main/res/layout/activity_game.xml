@@ -15,6 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -28,6 +29,27 @@
             android:layout_height="wrap_content"
             android:text="hello" />
 
+
+        <Button
+            android:id="@+id/btn_listening"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="等待连接"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/btn_bound_devices"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已绑定设备"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/btn_encode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发送encode" />
+
         <Button
             android:id="@+id/main_menu"
             android:layout_width="0dp"
@@ -38,13 +60,16 @@
             android:textSize="24sp" />
 
 
-
     </LinearLayout>
+
     <ListView
         android:id="@+id/device_list"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:divider="#e90423"
-        android:dividerHeight="1px">
+        android:dividerHeight="1px"
+        tools:ignore="MissingConstraints">
+
+
     </ListView>
 </android.support.constraint.ConstraintLayout>

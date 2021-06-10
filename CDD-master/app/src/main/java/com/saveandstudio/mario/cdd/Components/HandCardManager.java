@@ -28,7 +28,6 @@ public class HandCardManager extends MonoBehavior {
     public boolean enablePass = false;
     public boolean turn;
     public static int count = 0;
-    public String encodedString = "";
     public CardSystem cardSystem = new CardSystem();
     public GameActivity gameActivity = new GameActivity();
 
@@ -68,9 +67,7 @@ public class HandCardManager extends MonoBehavior {
                 count++;
             }
             if (count == 4) {
-                encodedString = encode();
-//                gameActivity.say(encodedString);
-                gameActivity.print1();
+                Global.encodedString = encode();
             }
         }
         updatePositions();
