@@ -89,7 +89,7 @@ public class GameActivity extends AppCompatActivity {
         mBtn_bound_devices = findViewById(R.id.btn_bound_devices);
         mBtn_hello = findViewById(R.id.btn_hello);
         mBtn_encode = findViewById(R.id.btn_encode);
-
+        
         setOnClickListener();
     }
 

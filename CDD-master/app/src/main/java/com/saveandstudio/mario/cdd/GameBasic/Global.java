@@ -7,6 +7,6 @@ public class Global {
     public static String encodedString = "";
     public static boolean isServer = false;
 
-    private Global() {
+   public Global() {
     }
 }

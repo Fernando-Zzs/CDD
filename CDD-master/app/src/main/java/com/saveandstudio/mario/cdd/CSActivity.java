@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.saveandstudio.mario.cdd.GameBasic.Global;
+
 public class CSActivity extends AppCompatActivity {
     private Button mBtn_server;
     private Button mBtn_client;
@@ -37,11 +39,12 @@ public class CSActivity extends AppCompatActivity {
             Intent intent = null;
             switch (v.getId()) {
                 case R.id.btn_server:
-                    intent = new Intent(CSActivity.this, ServerActivity.class);
-                    
+                    intent = new Intent(CSActivity.this, GameActivity.class);
+                    Global.isServer = true;
                     break;
                 case R.id.btn_client:
-                    intent = new Intent(CSActivity.this, ClientActivity.class);
+                    intent = new Intent(CSActivity.this, GameActivity.class);
+                    Global.isServer = false;
                     break;
                 default:
                     break;

@@ -3,6 +3,7 @@ package com.saveandstudio.mario.cdd.Components;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
+
 import com.saveandstudio.mario.cdd.GameBasic.Decoder;
 
 import com.saveandstudio.mario.cdd.GameActivity;
@@ -70,21 +71,18 @@ public class HandCardManager extends MonoBehavior {
             }
             if (count == 4) {
                 Global.encodedString = encode();
+
+                Decoder decoder = new Decoder(Global.encodedString);
+                cardPackages = new ArrayList<>();
+                cardPackages = decoder.decode();
+                for (int j = 0; j < 52; j++) {
+                    Log.d(TAG, "Start: cardPackages:" + cardPackages.get(j).figure + " " + cardPackages.get(j).suit);
+                }
             }
         }
         updatePositions();
 
 
-
-        // test
-//        Decoder decoder = new Decoder(Global.encodedString);
-//        Decoder decoder = new Decoder("0,1,1,0,2,0,2,3,4,0,5,0,6,0,8,0,8,1,10,0,10,2,10,3,11,1,1,2,3,0,3,2,4,1,4,2,5,1,7,0,7,1,7,3,8,2,8,3,9,0,12,1,0,2,0,3,1,3,4,3,6,1,6,2,7,2,9,2,10,1,11,0,11,2,12,2,12,3,0,0,1,1,2,1,2,2,3,1,3,3,5,2,5,3,6,3,9,1,9,3,11,3,12,0");
-        Decoder decoder = new Decoder(Global.encodedString);
-        cardPackages = new ArrayList<>();
-        cardPackages = decoder.decode();
-        for (int i = 0; i < 52; i++){
-              Log.d(TAG, "Start: cardPackages:" + cardPackages.get(i).figure +" "+cardPackages.get(i).suit);
-        }
     }
 
     public void updatePositions() {
@@ -180,17 +178,18 @@ public class HandCardManager extends MonoBehavior {
         String play3_str = "";
 
         for (int i = 0; i < 13; i++) {
-            play0_str += CardSystem.players.get(0).handCards.get(i).figure + "," + CardSystem.players.get(0).handCards.get(i).suit + ";";
+            play0_str += CardSystem.players.get(0).handCards.get(i).figure + "," + CardSystem.players.get(0).handCards.get(i).suit + ",";
         }
         for (int i = 0; i < 13; i++) {
-            play1_str += CardSystem.players.get(1).handCards.get(i).figure + "," + CardSystem.players.get(1).handCards.get(i).suit + ";";
+            play1_str += CardSystem.players.get(1).handCards.get(i).figure + "," + CardSystem.players.get(1).handCards.get(i).suit + ",";
         }
         for (int i = 0; i < 13; i++) {
-            play2_str += CardSystem.players.get(2).handCards.get(i).figure + "," + CardSystem.players.get(2).handCards.get(i).suit + ";";
+            play2_str += CardSystem.players.get(2).handCards.get(i).figure + "," + CardSystem.players.get(2).handCards.get(i).suit + ",";
         }
         for (int i = 0; i < 13; i++) {
-            play3_str += CardSystem.players.get(3).handCards.get(i).figure + "," + CardSystem.players.get(3).handCards.get(i).suit + ";";
+            play3_str += CardSystem.players.get(3).handCards.get(i).figure + "," + CardSystem.players.get(3).handCards.get(i).suit + ",";
         }
+        Log.d(TAG, "encode: " + play0_str + play1_str + play2_str + play3_str);
 
         return play0_str + play1_str + play2_str + play3_str;
     }
