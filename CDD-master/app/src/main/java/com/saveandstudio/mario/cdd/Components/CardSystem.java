@@ -18,6 +18,7 @@ import static android.content.ContentValues.TAG;
 public class CardSystem extends MonoBehavior {
     private ArrayList<com.saveandstudio.mario.cdd.Prefabs.Card> cards = new ArrayList<>();
     private ArrayList<com.saveandstudio.mario.cdd.Components.Card> lastCards = new ArrayList<>();
+    public ArrayList<Card> cardPackages;
     private int cardAmount;
     private static CardSystem cardSystemInstance;
     public static ArrayList<HandCardManager> players = new ArrayList<>();
@@ -292,6 +293,30 @@ public class CardSystem extends MonoBehavior {
             players.get(i).turn = false;
         }
         players.get(turn).turn = true;
+    }
+
+    public ArrayList<Card> clientGetCards(){
+        Decoder decoder = new Decoder(Global.encodedString);
+        cardPackages = new ArrayList<>();
+        ArrayList<Card> temp = new ArrayList<>();
+
+        cardPackages = decoder.decode();
+//        for (int j = 0; j < 52; j++) {
+//            Log.d(TAG, "Start: cardPackages:" + cardPackages.get(j).figure + " " + cardPackages.get(j).suit);
+//        }
+        for (int j = 0; j < 13; j++) {
+            temp.add(cardPackages.get(j));
+        }
+        for (int j = 13; j < 52; j++){
+            cardPackages.set(j-13 , cardPackages.get(j));
+        }
+        for (int j = 39; j < 52; j++){
+            cardPackages.set(j , temp.get(j-39));
+        }
+//        for (int j = 0; j < 52; j++) {
+//            Log.d(TAG, "End: cardPackages:" + cardPackages.get(j).figure + " " + cardPackages.get(j).suit);
+//        }
+        return cardPackages;
     }
 
     public int getTurnAmount() {

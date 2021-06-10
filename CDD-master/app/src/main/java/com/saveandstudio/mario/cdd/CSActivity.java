@@ -41,10 +41,12 @@ public class CSActivity extends AppCompatActivity {
                 case R.id.btn_server:
                     intent = new Intent(CSActivity.this, GameActivity.class);
                     Global.isServer = true;
+                    Global.player_id = 0;
                     break;
                 case R.id.btn_client:
                     intent = new Intent(CSActivity.this, GameActivity.class);
                     Global.isServer = false;
+                    Global.player_id = 1;
                     break;
                 default:
                     break;

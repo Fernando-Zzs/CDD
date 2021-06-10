@@ -16,7 +16,6 @@ import static android.content.ContentValues.TAG;
 
 public class HandCardManager extends MonoBehavior {
     public ArrayList<Card> handCards;
-    public ArrayList<Card> cardPackages;
     private ArrayList<Card> outCards;
     private CardDesk cardDesk;
     private boolean isPlayer = false;
@@ -53,7 +52,7 @@ public class HandCardManager extends MonoBehavior {
             Card card = CardSystem.getInstance().deliverCard();
 
             card.setManager(this);
-            if (isPlayer) {
+            if (isPlayer && Global.player_id == this.id) {
                 card.addComponent(new BoxCollider());
                 card.addComponent(new AutoCollider());
                 card.addComponent(new TouchCardEvents());
@@ -66,23 +65,19 @@ public class HandCardManager extends MonoBehavior {
             if (card.getSuit() + card.getFigure() == 0) {
                 CardSystem.getInstance().setFirstTurn(id);
             }
+
             if (i == 12) {
                 count++;
             }
             if (count == 4) {
                 Global.encodedString = encode();
-
-                Decoder decoder = new Decoder(Global.encodedString);
-                cardPackages = new ArrayList<>();
-                cardPackages = decoder.decode();
-                for (int j = 0; j < 52; j++) {
-                    Log.d(TAG, "Start: cardPackages:" + cardPackages.get(j).figure + " " + cardPackages.get(j).suit);
+                if(Global.player_id == 1) {
+                    handCards = CardSystem.getInstance().clientGetCards();
                 }
             }
         }
+
         updatePositions();
-
-
     }
 
     public void updatePositions() {
@@ -172,25 +167,26 @@ public class HandCardManager extends MonoBehavior {
     }
 
     public String encode() {
-        String play0_str = "";
-        String play1_str = "";
-        String play2_str = "";
-        String play3_str = "";
-
-        for (int i = 0; i < 13; i++) {
-            play0_str += CardSystem.players.get(0).handCards.get(i).figure + "," + CardSystem.players.get(0).handCards.get(i).suit + ",";
-        }
-        for (int i = 0; i < 13; i++) {
-            play1_str += CardSystem.players.get(1).handCards.get(i).figure + "," + CardSystem.players.get(1).handCards.get(i).suit + ",";
-        }
-        for (int i = 0; i < 13; i++) {
-            play2_str += CardSystem.players.get(2).handCards.get(i).figure + "," + CardSystem.players.get(2).handCards.get(i).suit + ",";
-        }
-        for (int i = 0; i < 13; i++) {
-            play3_str += CardSystem.players.get(3).handCards.get(i).figure + "," + CardSystem.players.get(3).handCards.get(i).suit + ",";
-        }
-        Log.d(TAG, "encode: " + play0_str + play1_str + play2_str + play3_str);
-
-        return play0_str + play1_str + play2_str + play3_str;
+//        String play0_str = "";
+//        String play1_str = "";
+//        String play2_str = "";
+//        String play3_str = "";
+//
+//        for (int i = 0; i < 13; i++) {
+//            play0_str += CardSystem.players.get(0).handCards.get(i).figure + "," + CardSystem.players.get(0).handCards.get(i).suit + ",";
+//        }
+//        for (int i = 0; i < 13; i++) {
+//            play1_str += CardSystem.players.get(1).handCards.get(i).figure + "," + CardSystem.players.get(1).handCards.get(i).suit + ",";
+//        }
+//        for (int i = 0; i < 13; i++) {
+//            play2_str += CardSystem.players.get(2).handCards.get(i).figure + "," + CardSystem.players.get(2).handCards.get(i).suit + ",";
+//        }
+//        for (int i = 0; i < 13; i++) {
+//            play3_str += CardSystem.players.get(3).handCards.get(i).figure + "," + CardSystem.players.get(3).handCards.get(i).suit + ",";
+//        }
+//        Log.d(TAG, "encode: " + play0_str + play1_str + play2_str + play3_str);
+//
+//        return play0_str + play1_str + play2_str + play3_str;
+        return "0,1,1,0,2,0,2,3,4,0,5,0,6,0,8,0,8,1,10,0,10,2,10,3,11,1,1,2,3,0,3,2,4,1,4,2,5,1,7,0,7,1,7,3,8,2,8,3,9,0,12,1,0,2,0,3,1,3,4,3,6,1,6,2,7,2,9,2,10,1,11,0,11,2,12,2,12,3,0,0,1,1,2,1,2,2,3,1,3,3,5,2,5,3,6,3,9,1,9,3,11,3,12,0";
     }
 }

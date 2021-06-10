@@ -32,8 +32,8 @@ public class Scene {
                 Vector3.one), true, 0);
         //player.addComponent(new AiPlayer());
         Player Rplayer1 = new Player(1, new Transform(new Vector3(GameViewInfo.centerW + 400, GameViewInfo.centerH - 50, 0), 0,
-                Vector3.one), false, 1);
-        Rplayer1.addComponent(new AiPlayer());
+                Vector3.one), true, 1);
+//        Rplayer1.addComponent(new AiPlayer());
         Player Rplayer2 = new Player(0, new Transform(new Vector3(GameViewInfo.centerW, GameViewInfo.centerH - 650, 0), 0,
                 Vector3.one), false, 2);
         Rplayer2.addComponent(new AiPlayer());

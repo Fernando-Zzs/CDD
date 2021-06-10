@@ -6,6 +6,7 @@ public class Global {
     public static Context surfaceContext;
     public static String encodedString = "";
     public static boolean isServer = false;
+    public static int player_id;
 
    public Global() {
     }
