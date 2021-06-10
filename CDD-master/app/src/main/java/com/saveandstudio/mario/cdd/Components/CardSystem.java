@@ -1,6 +1,10 @@
 package com.saveandstudio.mario.cdd.Components;
 
+import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.saveandstudio.mario.cdd.GameActivity;
 import com.saveandstudio.mario.cdd.GameBasic.*;
 import com.saveandstudio.mario.cdd.R;
 import com.saveandstudio.mario.cdd.Scenes.Scene;
@@ -9,12 +13,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import static android.content.ContentValues.TAG;
+
 public class CardSystem extends MonoBehavior {
     private ArrayList<com.saveandstudio.mario.cdd.Prefabs.Card> cards = new ArrayList<>();
     private ArrayList<com.saveandstudio.mario.cdd.Components.Card> lastCards = new ArrayList<>();
     private int cardAmount;
     private static CardSystem cardSystemInstance;
-    private ArrayList<HandCardManager> players = new ArrayList<>();
+    public static ArrayList<HandCardManager> players = new ArrayList<>();
     private int turn = 0;
     private int turnAmount = 0;
     private int lastPlayerID;
@@ -32,6 +38,9 @@ public class CardSystem extends MonoBehavior {
      * 4、同花顺
      * */
     public boolean someOneWin = false;
+    public GameActivity gameActivity;
+
+    private Toast mToast;
 
     @Override
     public void Awake() {
@@ -315,5 +324,9 @@ public class CardSystem extends MonoBehavior {
 
     public int getCardNums(int i) {
         return cardNums[i];
+    }
+
+    public void print1() {
+        Log.d(TAG, "1");
     }
 }

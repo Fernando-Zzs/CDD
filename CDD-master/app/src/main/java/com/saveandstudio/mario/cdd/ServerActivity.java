@@ -12,37 +12,23 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.saveandstudio.mario.cdd.Components.Card;
-import com.saveandstudio.mario.cdd.Components.CardSystem;
-import com.saveandstudio.mario.cdd.GameBasic.Global;
-import com.saveandstudio.mario.cdd.GameBasic.Input;
-import com.saveandstudio.mario.cdd.GameBasic.Physics;
-import com.saveandstudio.mario.cdd.GameBasic.Renderer;
-import com.saveandstudio.mario.cdd.Scenes.Scene;
 import com.saveandstudio.mario.cdd.connect.AcceptThread;
 import com.saveandstudio.mario.cdd.connect.ConnectThread;
 import com.saveandstudio.mario.cdd.connect.Constant;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import static android.content.ContentValues.TAG;
 
-public class GameActivity extends AppCompatActivity {
+public class ServerActivity extends AppCompatActivity {
 
-    private Toast newGame_hint;
-    private boolean exit = false;
-    private static long lastClickTime = System.currentTimeMillis();
     public static final int REQUEST_CODE = 0;
     private List<BluetoothDevice> mDeviceList = new ArrayList<>();
     private List<BluetoothDevice> mBondedDeviceList = new ArrayList<>();
@@ -57,37 +43,33 @@ public class GameActivity extends AppCompatActivity {
     private AcceptThread mAcceptThread;
     private ConnectThread mConnectThread;
 
+    private Button mBtn_listening;
     private Button mBtn_hello;
+    private Button mBtn_start_game;
+    private TextView mTv_wait_for_client;
 
+    private boolean connected = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        hideNavigationBar();
-
-        Button mainMenu = findViewById(R.id.main_menu);
-        mainMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-                overridePendingTransition(R.anim.anim_in, R.anim.anim_out);
-                exit();
-            }
-        });
+        setContentView(R.layout.activity_server);
         initUI();
         registerBluetoothReceiver();
         mController.turnOnBlueTooth(this, REQUEST_CODE);
+        mBtn_listening = findViewById(R.id.btn_listening);
         mBtn_hello = findViewById(R.id.btn_hello);
+        mBtn_start_game = findViewById(R.id.btn_start_game);
+        mTv_wait_for_client = findViewById(R.id.tv_wait_for_client);
 
         setOnClickListener();
     }
 
     public void setOnClickListener() {
         OnClick onClick = new OnClick();
+        mBtn_listening.setOnClickListener(onClick);
         mBtn_hello.setOnClickListener(onClick);
+        mBtn_start_game.setOnClickListener(onClick);
     }
 
     private class OnClick implements View.OnClickListener {
@@ -95,8 +77,25 @@ public class GameActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
+                case R.id.btn_listening:
+                    if (mAcceptThread != null) {
+                        mAcceptThread.cancel();
+                    }
+                    mAcceptThread = new AcceptThread(mController.getAdapter(), mUIHandler);
+                    mAcceptThread.start();
+                    break;
                 case R.id.btn_hello:
                     say("Hello");
+                    break;
+                case R.id.btn_start_game:
+                    if (connected) {
+                        Intent game = new Intent(ServerActivity.this, GameActivity.class);
+                        startActivity(game);
+                        overridePendingTransition(R.anim.anim_in, R.anim.anim_out);
+                        say("start");
+                    } else {
+                        showToast("请与客户端连接后再开始游戏");
+                    }
                     break;
                 default:
                     break;
@@ -120,6 +119,7 @@ public class GameActivity extends AppCompatActivity {
         registerReceiver(receiver, filter);
     }
 
+    //注册广播监听搜索结果
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -163,6 +163,7 @@ public class GameActivity extends AppCompatActivity {
         }
     };
 
+    //初始化用户界面
     private void initUI() {
         mListView = findViewById(R.id.device_list);
         mAdapter = new DeviceAdapter(mDeviceList, this);
@@ -170,7 +171,7 @@ public class GameActivity extends AppCompatActivity {
         mListView.setOnItemClickListener(bondDeviceClick);
     }
 
-    public void say(String word) {
+    private void say(String word) {
         if (mAcceptThread != null) {
             try {
                 mAcceptThread.sendData(word.getBytes("utf-8"));
@@ -222,9 +223,13 @@ public class GameActivity extends AppCompatActivity {
                     showToast("error:" + String.valueOf(message.obj));
                     break;
                 case Constant.MSG_CONNECTED_TO_SERVER:
+                    // 客户端连接成功后显示
                     showToast("连接到服务端");
                     break;
                 case Constant.MSG_GOT_A_CLINET:
+                    // 服务器连接成功后显示
+                    mTv_wait_for_client.setText("连接成功，现在您可以开始游戏");
+                    connected = true;
                     showToast("找到服务端");
                     break;
             }
@@ -258,51 +263,4 @@ public class GameActivity extends AppCompatActivity {
 
         unregisterReceiver(receiver);
     }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        hideNavigationBar();
-    }
-
-    @Override
-    public void onBackPressed() {
-        finish();
-        overridePendingTransition(R.anim.anim_in, R.anim.anim_out);
-        exit();
-    }
-
-
-    public void exit() {
-        synchronized (Renderer.renderersList) {
-            Renderer.clear = true;
-            if (Renderer.renderersList != null) {
-                Renderer.renderersList.clear();
-            }
-        }
-        Scene.getInstance().clear = true;
-        Physics.Clear();
-        synchronized (CardSystem.getInstance()) {
-            CardSystem.getInstance().remove();
-        }
-    }
-
-    private void hideNavigationBar() {
-        if (Build.VERSION.SDK_INT < 19) { // lower api
-            View v = this.getWindow().getDecorView();
-            v.setSystemUiVisibility(View.GONE);
-        } else {
-            //for new api versions.
-            View decorView = getWindow().getDecorView();
-            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
-            decorView.setSystemUiVisibility(uiOptions);
-        }
-    }
-
-    public void print1() {
-        Log.d(TAG, "gameActivity: 1");
-    }
-
 }

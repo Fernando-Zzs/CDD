@@ -9,15 +9,16 @@ import com.saveandstudio.mario.cdd.Renderers.ButtonRenderer;
 
 import java.util.ArrayList;
 
-public class  Scene {
+public class Scene {
 
     public ArrayList<GameObject> gameObjectsList;
     public static boolean prepared = false;
     public boolean clear = false;
 
     private static Scene instantce;
-    public static Scene getInstance(){
-        if(instantce == null){
+
+    public static Scene getInstance() {
+        if (instantce == null) {
             instantce = new Scene();
             prepared = false;
         }
@@ -41,36 +42,37 @@ public class  Scene {
         Rplayer3.addComponent(new AiPlayer());
         //show card button
         GameObject showCardButton = new GameObject(new Transform(new Vector3(GameViewInfo.centerW + 170, GameViewInfo.centerH + 320, 100), 0,
-                new Vector3((float) 1.5, (float)1.5,1), Vector3.zero));
+                new Vector3((float) 1.5, (float) 1.5, 1), Vector3.zero));
         showCardButton.addComponent(new ButtonRenderer(R.mipmap.show_card_up, R.mipmap.show_card_down, R.mipmap.show_card_lock));
         showCardButton.addComponent(new AutoPivot());
         showCardButton.addComponent(new BoxCollider());
         showCardButton.addComponent(new AutoCollider());
-        showCardButton.addComponent(new ShowCardButton((HandCardManager)player.getComponent(HandCardManager.class)));
+        showCardButton.addComponent(new ShowCardButton((HandCardManager) player.getComponent(HandCardManager.class)));
         //pass button
         GameObject passButton = new GameObject(new Transform(new Vector3(GameViewInfo.centerW - 170, GameViewInfo.centerH + 320, 100), 0,
-                new Vector3((float) 1.5, (float)1.5,1), Vector3.zero));
+                new Vector3((float) 1.5, (float) 1.5, 1), Vector3.zero));
         passButton.addComponent(new ButtonRenderer(R.mipmap.pass_up, R.mipmap.pass_down, R.mipmap.pass_lock));
         passButton.addComponent(new AutoPivot());
         passButton.addComponent(new BoxCollider());
         passButton.addComponent(new AutoCollider());
-        passButton.addComponent(new PassButton((HandCardManager)player.getComponent(HandCardManager.class)));
+        passButton.addComponent(new PassButton((HandCardManager) player.getComponent(HandCardManager.class)));
         prepared = true;
     }
 
-    public void Clear(){
-        if(clear){
+    public void Clear() {
+        if (clear) {
             clearGameObjects();
             clear = false;
             instantce = null;
         }
     }
-    public void clearGameObjects(){
-            for (int i = 0; i < gameObjectsList.size(); i++) {
-                gameObjectsList.get(i).Destroy();
-            }
-            gameObjectsList.clear();
-            instantce = null;
+
+    public void clearGameObjects() {
+        for (int i = 0; i < gameObjectsList.size(); i++) {
+            gameObjectsList.get(i).Destroy();
+        }
+        gameObjectsList.clear();
+        instantce = null;
 
     }
 

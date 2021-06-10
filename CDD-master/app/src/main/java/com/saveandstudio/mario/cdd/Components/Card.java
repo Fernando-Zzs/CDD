@@ -9,8 +9,8 @@ import com.saveandstudio.mario.cdd.R;
 import com.saveandstudio.mario.cdd.Renderers.CardRenderer;
 
 public class Card extends MonoBehavior implements Comparable<Card> {
-    private int suit;
-    private int figure;
+    public int suit;
+    public int figure;
     private boolean side = false;
     private HandCardManager manager;
     public TransformToTarget transformToTarget;

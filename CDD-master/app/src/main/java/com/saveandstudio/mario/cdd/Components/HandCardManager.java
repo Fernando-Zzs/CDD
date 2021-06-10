@@ -1,14 +1,19 @@
 package com.saveandstudio.mario.cdd.Components;
 
+import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.saveandstudio.mario.cdd.GameActivity;
 import com.saveandstudio.mario.cdd.GameBasic.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static android.content.ContentValues.TAG;
+
 public class HandCardManager extends MonoBehavior {
-    private ArrayList<Card> handCards;
+    public ArrayList<Card> handCards;
     private ArrayList<Card> outCards;
     private CardDesk cardDesk;
     private boolean isPlayer = false;
@@ -22,6 +27,10 @@ public class HandCardManager extends MonoBehavior {
     public boolean enableShowCard = false;
     public boolean enablePass = false;
     public boolean turn;
+    public static int count = 0;
+    public String encodedString = "";
+    public CardSystem cardSystem = new CardSystem();
+    public GameActivity gameActivity = new GameActivity();
 
     public HandCardManager(boolean isPlayer, int id, GameObject pass) {
         this.isPlayer = isPlayer;
@@ -40,8 +49,9 @@ public class HandCardManager extends MonoBehavior {
         outCards = new ArrayList<>();
         for (int i = 0; i < 13; i++) {
             Card card = CardSystem.getInstance().deliverCard();
+
             card.setManager(this);
-            if (isPlayer && id==0) {
+            if (isPlayer) {
                 card.addComponent(new BoxCollider());
                 card.addComponent(new AutoCollider());
                 card.addComponent(new TouchCardEvents());
@@ -53,6 +63,14 @@ public class HandCardManager extends MonoBehavior {
             Collections.sort(handCards);
             if (card.getSuit() + card.getFigure() == 0) {
                 CardSystem.getInstance().setFirstTurn(id);
+            }
+            if (i == 12) {
+                count++;
+            }
+            if (count == 4) {
+                encodedString = encode();
+//                gameActivity.say(encodedString);
+                gameActivity.print1();
             }
         }
         updatePositions();
@@ -140,7 +158,29 @@ public class HandCardManager extends MonoBehavior {
         return id;
     }
 
-    public ArrayList<Card> getCards(){
+    public ArrayList<Card> getCards() {
         return handCards;
+    }
+
+    public String encode() {
+        String play0_str = "";
+        String play1_str = "";
+        String play2_str = "";
+        String play3_str = "";
+
+        for (int i = 0; i < 13; i++) {
+            play0_str += CardSystem.players.get(0).handCards.get(i).figure + "," + CardSystem.players.get(0).handCards.get(i).suit + ";";
+        }
+        for (int i = 0; i < 13; i++) {
+            play1_str += CardSystem.players.get(1).handCards.get(i).figure + "," + CardSystem.players.get(1).handCards.get(i).suit + ";";
+        }
+        for (int i = 0; i < 13; i++) {
+            play2_str += CardSystem.players.get(2).handCards.get(i).figure + "," + CardSystem.players.get(2).handCards.get(i).suit + ";";
+        }
+        for (int i = 0; i < 13; i++) {
+            play3_str += CardSystem.players.get(3).handCards.get(i).figure + "," + CardSystem.players.get(3).handCards.get(i).suit + ";";
+        }
+
+        return play0_str + play1_str + play2_str + play3_str;
     }
 }

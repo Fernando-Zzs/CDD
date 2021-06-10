@@ -4,5 +4,7 @@ import android.content.Context;
 
 public class Global {
     public static Context surfaceContext;
-    private Global(){}
+
+    private Global() {
+    }
 }

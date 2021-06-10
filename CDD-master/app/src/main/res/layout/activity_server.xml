@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:orientation="vertical">
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ServerActivity">
+
+    <TextView
+        android:id="@+id/tv_wait_for_client"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="等待客户端连接……"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btn_listening"
@@ -15,14 +26,13 @@
         android:id="@+id/btn_hello"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="发送Hello"
-        android:textAllCaps="false" />
+        android:text="Hello" />
 
     <Button
-        android:id="@+id/btn_bound_devices"
+        android:id="@+id/btn_start_game"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="已绑定" />
+        android:text="开始游戏" />
 
     <ListView
         android:id="@+id/device_list"
@@ -30,6 +40,7 @@
         android:layout_height="match_parent"
         android:divider="#e90423"
         android:dividerHeight="1px">
+
 
     </ListView>
 

@@ -50,7 +50,7 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_GPU);
         paint = new Paint();
 
-        paint.setColor(getResources().getColor(R.color.colorAccent));
+        paint.setColor(getResources().getColor(R.color.colorPrimary));
         Scene.getInstance().prePareScene();
         //设置焦点
         setFocusable(true);
@@ -60,7 +60,7 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
         screenW = getWidth();
-        screenH = getHeight();
+        screenH = (int) ((float) screenW / (float) viewW * (float) viewH);
         surfaceHolder.setFixedSize(screenW, screenH);
     }
 
@@ -80,7 +80,7 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
     //绘图
     private void render(Canvas canvas) {
         try{
-            paint.setColor(getResources().getColor(R.color.colorPrimaryDark));
+            paint.setColor(getResources().getColor(R.color.colorPrimary));
             canvas.drawRect(0, 0, this.getWidth(), this.getHeight(), paint);
             synchronized (Renderer.renderersList){
                 if (Renderer.renderersList != null && !Renderer.clear) {
