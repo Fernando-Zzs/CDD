@@ -43,6 +43,8 @@ public class GameActivity extends AppCompatActivity {
     private Toast newGame_hint;
     private boolean exit = false;
     private static long lastClickTime = System.currentTimeMillis();
+    private ServerActivity serverActivity = new ServerActivity();
+    private ClientActivity clientActivity = new ClientActivity();
     public static final int REQUEST_CODE = 0;
     private List<BluetoothDevice> mDeviceList = new ArrayList<>();
     private List<BluetoothDevice> mBondedDeviceList = new ArrayList<>();
@@ -57,7 +59,10 @@ public class GameActivity extends AppCompatActivity {
     private AcceptThread mAcceptThread;
     private ConnectThread mConnectThread;
 
+    private Button mBtn_listening;
     private Button mBtn_hello;
+    private Button mBtn_bound_devices;
+    private Button mBtn_encode;
 
 
     @Override
@@ -80,14 +85,20 @@ public class GameActivity extends AppCompatActivity {
         initUI();
         registerBluetoothReceiver();
         mController.turnOnBlueTooth(this, REQUEST_CODE);
+        mBtn_listening = findViewById(R.id.btn_listening);
+        mBtn_bound_devices = findViewById(R.id.btn_bound_devices);
         mBtn_hello = findViewById(R.id.btn_hello);
+        mBtn_encode = findViewById(R.id.btn_encode);
 
         setOnClickListener();
     }
 
     public void setOnClickListener() {
         OnClick onClick = new OnClick();
+        mBtn_listening.setOnClickListener(onClick);
+        mBtn_bound_devices.setOnClickListener(onClick);
         mBtn_hello.setOnClickListener(onClick);
+        mBtn_encode.setOnClickListener(onClick);
     }
 
     private class OnClick implements View.OnClickListener {
@@ -95,9 +106,23 @@ public class GameActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
+                case R.id.btn_listening:
+                    if (mAcceptThread != null) {
+                        mAcceptThread.cancel();
+                    }
+                    mAcceptThread = new AcceptThread(mController.getAdapter(), mUIHandler);
+                    mAcceptThread.start();
+                    break;
+                case R.id.btn_bound_devices:
+                    mBondedDeviceList = mController.getBondedDeviceList();
+                    mAdapter.refresh(mBondedDeviceList);
+                    mListView.setOnItemClickListener(bondedDeviceClick);
+                    break;
                 case R.id.btn_hello:
                     say("Hello");
                     break;
+                case R.id.btn_encode:
+                    say(Global.encodedString);
                 default:
                     break;
             }
@@ -163,6 +188,7 @@ public class GameActivity extends AppCompatActivity {
         }
     };
 
+    //初始化用户界面
     private void initUI() {
         mListView = findViewById(R.id.device_list);
         mAdapter = new DeviceAdapter(mDeviceList, this);
@@ -170,7 +196,7 @@ public class GameActivity extends AppCompatActivity {
         mListView.setOnItemClickListener(bondDeviceClick);
     }
 
-    public void say(String word) {
+    private void say(String word) {
         if (mAcceptThread != null) {
             try {
                 mAcceptThread.sendData(word.getBytes("utf-8"));
@@ -232,7 +258,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     //设置toast的标准格式
-    public void showToast(String text) {
+    private void showToast(String text) {
         if (mToast == null) {
             mToast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
             mToast.show();
@@ -258,7 +284,6 @@ public class GameActivity extends AppCompatActivity {
 
         unregisterReceiver(receiver);
     }
-
 
     @Override
     protected void onResume() {
@@ -299,10 +324,6 @@ public class GameActivity extends AppCompatActivity {
                     | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
             decorView.setSystemUiVisibility(uiOptions);
         }
-    }
-
-    public void print1() {
-        Log.d(TAG, "gameActivity: 1");
     }
 
 }
