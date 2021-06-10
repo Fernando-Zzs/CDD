@@ -243,6 +243,7 @@ public class GameActivity extends AppCompatActivity {
             switch (message.what) {
                 case Constant.MSG_GOT_DATA:
                     showToast("data:" + String.valueOf(message.obj));
+                    Global.encodedString = String.valueOf(message.obj);
                     break;
                 case Constant.MSG_ERROR:
                     showToast("error:" + String.valueOf(message.obj));

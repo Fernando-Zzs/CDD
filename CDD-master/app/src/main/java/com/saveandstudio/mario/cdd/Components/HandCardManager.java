@@ -77,11 +77,11 @@ public class HandCardManager extends MonoBehavior {
 
 
         // test
-        Decoder decoder = new Decoder();
+        Decoder decoder = new Decoder(Global.encodedString);
         cardPackages = new ArrayList<>();
         cardPackages = decoder.decode();
         for (int i = 0; i < 52; i++){
-             Log.d(TAG, "Start: cardPackages:" + cardPackages.get(i).figure +" "+cardPackages.get(i).suit);
+              Log.d(TAG, "Start: cardPackages:" + cardPackages.get(i).figure +" "+cardPackages.get(i).suit);
         }
     }
 
