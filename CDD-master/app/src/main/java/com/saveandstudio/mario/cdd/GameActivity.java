@@ -131,7 +131,7 @@ public class GameActivity extends AppCompatActivity {
                     mAcceptThread = new AcceptThread(mController.getAdapter(), mUIHandler);
                     mAcceptThread.start();
 
-                    
+                    showToast("正在等待连接……");
                     break;
                 case R.id.btn_bound_devices:
                     mBondedDeviceList = mController.getBondedDeviceList();

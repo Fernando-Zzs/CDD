@@ -17,6 +17,7 @@ import static android.content.ContentValues.TAG;
 public class HandCardManager extends MonoBehavior {
     public ArrayList<Card> handCards;
     private ArrayList<Card> outCards;
+    public ArrayList<Card> cardPackages;
     private CardDesk cardDesk;
     private boolean isPlayer = false;
     private Transform transform;
@@ -71,8 +72,8 @@ public class HandCardManager extends MonoBehavior {
             }
             if (count == 4) {
                 Global.encodedString = encode();
-                if(Global.player_id == 1) {
-                    handCards = CardSystem.getInstance().clientGetCards();
+                if (Global.player_id == 1) {
+                    cardPackages = CardSystem.getInstance().clientGetCards();
                 }
             }
         }
@@ -85,6 +86,7 @@ public class HandCardManager extends MonoBehavior {
             Card card = handCards.get(i);
             card.position = transform.getPosition().add(
                     cardDesk.calculatePosition(i, handCards.size()));
+//            Log.d(TAG, "updatePositions: " + card.position.x + card.position.y + card.position.z);
             card.transformToTarget.beginMove(card.position, speed);
         }
     }
