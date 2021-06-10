@@ -26,13 +26,13 @@
         <activity
             android:name=".MainActivity"
             android:resizeableActivity="false"
-            android:screenOrientation="portrait">
+            android:screenOrientation="landscape">
 
         </activity>
         <activity
             android:name=".GameActivity"
             android:resizeableActivity="false"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

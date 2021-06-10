@@ -60,7 +60,7 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
         screenW = getWidth();
-        screenH = (int) ((float) screenW / (float) viewW * (float) viewH);
+        screenH = getHeight();
         surfaceHolder.setFixedSize(screenW, screenH);
     }
 
