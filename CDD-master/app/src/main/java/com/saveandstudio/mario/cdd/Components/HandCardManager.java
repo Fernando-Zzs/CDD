@@ -72,7 +72,8 @@ public class HandCardManager extends MonoBehavior {
             }
             if (count == 4) {
                 Global.encodedString = encode();
-                if (Global.player_id == 1) {
+                if(Global.player_id == 1) {
+                    cardPackages = new ArrayList<>();
                     cardPackages = CardSystem.getInstance().clientGetCards();
                 }
             }
