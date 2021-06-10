@@ -3,6 +3,7 @@ package com.saveandstudio.mario.cdd.Components;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
+import com.saveandstudio.mario.cdd.GameBasic.Decoder;
 
 import com.saveandstudio.mario.cdd.GameActivity;
 import com.saveandstudio.mario.cdd.GameBasic.*;
@@ -74,6 +75,8 @@ public class HandCardManager extends MonoBehavior {
             }
         }
         updatePositions();
+        Decoder decoder = new Decoder();
+        decoder.decode();
     }
 
     public void updatePositions() {
