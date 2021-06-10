@@ -45,10 +45,24 @@
             tools:ignore="MissingConstraints" />
 
         <Button
+            android:id="@+id/btn_hide_devices"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="隐藏已绑定设备"
+            android:visibility="gone"
+            tools:ignore="MissingConstraints" />
+
+        <Button
             android:id="@+id/btn_encode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="发送encode" />
+
+        <Button
+            android:id="@+id/btn_start_game"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开始游戏" />
 
         <Button
             android:id="@+id/main_menu"

@@ -53,7 +53,7 @@ public class HandCardManager extends MonoBehavior {
             Card card = CardSystem.getInstance().deliverCard();
 
             card.setManager(this);
-            if (isPlayer) {
+            if (true) {
                 card.addComponent(new BoxCollider());
                 card.addComponent(new AutoCollider());
                 card.addComponent(new TouchCardEvents());
@@ -81,8 +81,6 @@ public class HandCardManager extends MonoBehavior {
             }
         }
         updatePositions();
-
-
     }
 
     public void updatePositions() {
