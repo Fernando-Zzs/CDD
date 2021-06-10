@@ -76,7 +76,6 @@ public class HandCardManager extends MonoBehavior {
                 }
             }
         }
-
         updatePositions();
     }
 

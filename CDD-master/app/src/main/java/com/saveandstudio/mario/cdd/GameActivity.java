@@ -36,6 +36,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import static android.content.ContentValues.TAG;
 
 public class GameActivity extends AppCompatActivity {
@@ -63,6 +64,9 @@ public class GameActivity extends AppCompatActivity {
     private Button mBtn_hello;
     private Button mBtn_bound_devices;
     private Button mBtn_encode;
+    private Button mBtn_hide_devices;
+    private Button mBtn_start_game;
+    private ListView mLv_device_list;
 
 
     @Override
@@ -89,8 +93,20 @@ public class GameActivity extends AppCompatActivity {
         mBtn_bound_devices = findViewById(R.id.btn_bound_devices);
         mBtn_hello = findViewById(R.id.btn_hello);
         mBtn_encode = findViewById(R.id.btn_encode);
-        
+        mBtn_hide_devices = findViewById(R.id.btn_hide_devices);
+        mLv_device_list = findViewById(R.id.device_list);
+        mBtn_start_game = findViewById(R.id.btn_start_game);
+
+        if (Global.isServer) {
+            mBtn_bound_devices.setVisibility(View.GONE);
+        } else {
+            mBtn_listening.setVisibility(View.GONE);
+            mBtn_encode.setVisibility(View.GONE);
+            mBtn_start_game.setVisibility(View.GONE);
+        }
+
         setOnClickListener();
+
     }
 
     public void setOnClickListener() {
@@ -99,6 +115,8 @@ public class GameActivity extends AppCompatActivity {
         mBtn_bound_devices.setOnClickListener(onClick);
         mBtn_hello.setOnClickListener(onClick);
         mBtn_encode.setOnClickListener(onClick);
+        mBtn_hide_devices.setOnClickListener(onClick);
+        mBtn_start_game.setOnClickListener(onClick);
     }
 
     private class OnClick implements View.OnClickListener {
@@ -112,17 +130,29 @@ public class GameActivity extends AppCompatActivity {
                     }
                     mAcceptThread = new AcceptThread(mController.getAdapter(), mUIHandler);
                     mAcceptThread.start();
+
+                    
                     break;
                 case R.id.btn_bound_devices:
                     mBondedDeviceList = mController.getBondedDeviceList();
                     mAdapter.refresh(mBondedDeviceList);
                     mListView.setOnItemClickListener(bondedDeviceClick);
+
+                    mBtn_bound_devices.setVisibility(View.GONE);
+                    mBtn_hide_devices.setVisibility(View.VISIBLE);
+                    mLv_device_list.setVisibility(View.VISIBLE);
                     break;
                 case R.id.btn_hello:
                     say("Hello");
                     break;
                 case R.id.btn_encode:
                     say(Global.encodedString);
+                case R.id.btn_hide_devices:
+                    mBtn_bound_devices.setVisibility(View.VISIBLE);
+                    mBtn_hide_devices.setVisibility(View.GONE);
+                    mLv_device_list.setVisibility(View.GONE);
+                case R.id.btn_start_game:
+
                 default:
                     break;
             }
