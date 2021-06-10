@@ -15,6 +15,7 @@ import static android.content.ContentValues.TAG;
 
 public class HandCardManager extends MonoBehavior {
     public ArrayList<Card> handCards;
+    public ArrayList<Card> cardPackages;
     private ArrayList<Card> outCards;
     private CardDesk cardDesk;
     private boolean isPlayer = false;
@@ -72,8 +73,16 @@ public class HandCardManager extends MonoBehavior {
             }
         }
         updatePositions();
+
+
+
+        // test
         Decoder decoder = new Decoder();
-        decoder.decode();
+        cardPackages = new ArrayList<>();
+        cardPackages = decoder.decode();
+        for (int i = 0; i < 52; i++){
+             Log.d(TAG, "Start: cardPackages:" + cardPackages.get(i).figure +" "+cardPackages.get(i).suit);
+        }
     }
 
     public void updatePositions() {
