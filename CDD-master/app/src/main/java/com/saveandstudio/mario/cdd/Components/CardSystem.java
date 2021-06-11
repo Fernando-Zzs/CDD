@@ -183,6 +183,7 @@ public class CardSystem extends MonoBehavior {
             lastCardType = thisCardType;
             lastMaxCard = thisMaxCard;
         }
+        Global.firstHand = false;
         lastCards.clear();
         lastCards.addAll(cards);
         lastPlayerID = turn;

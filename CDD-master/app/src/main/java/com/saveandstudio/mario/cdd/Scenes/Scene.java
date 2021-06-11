@@ -34,7 +34,7 @@ public class Scene {
             //player.addComponent(new AiPlayer());
             Player Rplayer1 = new Player(1, new Transform(new Vector3(GameViewInfo.centerW + 400, GameViewInfo.centerH - 50, 0), 0,
                     Vector3.one), true, 1);
-            //Rplayer1.addComponent(new AiPlayer());
+            Rplayer1.addComponent(new OtherPlayer());
             Player Rplayer2 = new Player(0, new Transform(new Vector3(GameViewInfo.centerW, GameViewInfo.centerH - 650, 0), 0,
                     Vector3.one), false, 2);
             Rplayer2.addComponent(new AiPlayer());
@@ -63,7 +63,7 @@ public class Scene {
         else if(Global.player_id==1){
             Player player = new Player(1, new Transform(new Vector3(GameViewInfo.centerW - 400, GameViewInfo.centerH - 50, 0), 0,
                     Vector3.one), true, 0);
-            //player.addComponent(new AiPlayer());
+            player.addComponent(new OtherPlayer());
             Player Rplayer1 = new Player(0, new Transform(new Vector3(GameViewInfo.centerW, GameViewInfo.centerH + 550, 0), 0,
                     Vector3.one), true, 1);
             //Rplayer1.addComponent(new AiPlayer());
