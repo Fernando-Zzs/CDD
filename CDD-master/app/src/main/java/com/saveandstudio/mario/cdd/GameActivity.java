@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.gsm.GsmCellLocation;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 import com.saveandstudio.mario.cdd.Components.Card;
 import com.saveandstudio.mario.cdd.Components.CardSystem;
+import com.saveandstudio.mario.cdd.GameBasic.Decoder;
 import com.saveandstudio.mario.cdd.GameBasic.Global;
 import com.saveandstudio.mario.cdd.GameBasic.Input;
 import com.saveandstudio.mario.cdd.GameBasic.Physics;
@@ -33,6 +35,7 @@ import com.saveandstudio.mario.cdd.connect.ConnectThread;
 import com.saveandstudio.mario.cdd.connect.Constant;
 
 import java.io.UnsupportedEncodingException;
+import java.security.DomainLoadStoreParameter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -73,6 +76,7 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         hideNavigationBar();
@@ -107,6 +111,28 @@ public class GameActivity extends AppCompatActivity {
 
         setOnClickListener();
 
+        if (Global.player_id == 0) {
+            // 等待连接
+            if (mAcceptThread != null) {
+                mAcceptThread.cancel();
+            }
+            mAcceptThread = new AcceptThread(mController.getAdapter(), mUIHandler);
+            mAcceptThread.start();
+            showToast("正在等待连接……");
+        }
+
+        if (Global.player_id == 1) {
+            mBondedDeviceList = mController.getBondedDeviceList();
+            mAdapter.refresh(mBondedDeviceList);
+            mListView.setOnItemClickListener(bondedDeviceClick);
+
+            BluetoothDevice device = mBondedDeviceList.get(0);
+            if (mConnectThread != null) {
+                mConnectThread.cancel();
+            }
+            mConnectThread = new ConnectThread(device, mController.getAdapter(), mUIHandler);
+            mConnectThread.start();
+        }
     }
 
     public void setOnClickListener() {
@@ -272,8 +298,13 @@ public class GameActivity extends AppCompatActivity {
             super.handleMessage(message);
             switch (message.what) {
                 case Constant.MSG_GOT_DATA:
-                    showToast("data:" + String.valueOf(message.obj));
-                    Global.encodedString = String.valueOf(message.obj);
+                    showToast(String.valueOf(message.obj));
+                    Log.d(TAG, String.valueOf(message.obj));
+                    if (Global.player_id == 1) {
+                        Global.client_get_data_count++;
+
+                        Global.seed = Integer.parseInt(String.valueOf(message.obj));
+                    }
                     break;
                 case Constant.MSG_ERROR:
                     showToast("error:" + String.valueOf(message.obj));
@@ -282,7 +313,7 @@ public class GameActivity extends AppCompatActivity {
                     showToast("连接到服务端");
                     break;
                 case Constant.MSG_GOT_A_CLINET:
-                    showToast("找到服务端");
+                    say(Global.seed + "");
                     break;
             }
         }

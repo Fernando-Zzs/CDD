@@ -1,6 +1,7 @@
 package com.saveandstudio.mario.cdd.Components;
 
 import android.os.Looper;
+import android.telephony.gsm.GsmCellLocation;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -11,8 +12,10 @@ import com.saveandstudio.mario.cdd.GameBasic.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 import static android.content.ContentValues.TAG;
+import static com.saveandstudio.mario.cdd.CSActivity.cards;
 
 public class HandCardManager extends MonoBehavior {
     public ArrayList<Card> handCards;
@@ -31,6 +34,7 @@ public class HandCardManager extends MonoBehavior {
     public boolean enablePass = false;
     public boolean turn;
     public static int count = 0;
+    public static boolean blocked = false;
     public CardSystem cardSystem = new CardSystem();
     public GameActivity gameActivity = new GameActivity();
 
@@ -43,12 +47,26 @@ public class HandCardManager extends MonoBehavior {
 
     @Override
     public void Start() {
+        if (Global.player_id == 1 && !blocked) {
+            try {
+                Thread.sleep(5000); //1000 毫秒，也就是1秒.
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }
+            blocked = true;
+            Random rnd = new Random(Global.seed);
+            Log.d(TAG, Global.seed + "");
+            Collections.shuffle(CardSystem.getInstance().cards, rnd);
+            Log.d(TAG, "p1");
+        }
+
         cardDesk = (CardDesk) getComponent(CardDesk.class);
         transform = (Transform) getComponent(Transform.class);
         chosenCards = new ArrayList<>();
         Vector3 position = transform.getPosition();
         handCards = new ArrayList<>();
         outCards = new ArrayList<>();
+        Log.d(TAG, "p3");
         for (int i = 0; i < 13; i++) {
             Card card = CardSystem.getInstance().deliverCard();
 
@@ -59,26 +77,25 @@ public class HandCardManager extends MonoBehavior {
                 card.addComponent(new TouchCardEvents());
                 card.setSide(true);
             }
+            card.setSide(true);
+            Log.d(TAG, "p6");
 
             handCards.add(card);
+            Log.d(TAG, "p7");
 
             Collections.sort(handCards);
             if (card.getSuit() + card.getFigure() == 0) {
                 CardSystem.getInstance().setFirstTurn(id);
             }
+            Log.d(TAG, "p8");
 
             if (i == 12) {
                 count++;
             }
-            if (count == 4) {
-                Global.encodedString = encode();
-                if(Global.player_id == 1) {
-                    cardPackages = new ArrayList<>();
-                    cardPackages = CardSystem.getInstance().clientGetCards();
-                }
-            }
+            Log.d(TAG, "p9");
         }
         updatePositions();
+        Log.d(TAG, "p10");
     }
 
     public void updatePositions() {

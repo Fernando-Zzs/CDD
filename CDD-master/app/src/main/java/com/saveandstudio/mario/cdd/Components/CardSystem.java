@@ -9,15 +9,21 @@ import com.saveandstudio.mario.cdd.GameBasic.*;
 import com.saveandstudio.mario.cdd.R;
 import com.saveandstudio.mario.cdd.Scenes.Scene;
 
+import java.nio.ReadOnlyBufferException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
+import java.util.Random;
+
+import javax.sql.RowSetMetaData;
 
 import static android.content.ContentValues.TAG;
 
 public class CardSystem extends MonoBehavior {
-    private ArrayList<com.saveandstudio.mario.cdd.Prefabs.Card> cards = new ArrayList<>();
+    public static ArrayList<com.saveandstudio.mario.cdd.Prefabs.Card> cards = new ArrayList<>();
     private ArrayList<com.saveandstudio.mario.cdd.Components.Card> lastCards = new ArrayList<>();
+    private ArrayList<com.saveandstudio.mario.cdd.Components.Card> cards_com = new ArrayList<>();
     public ArrayList<Card> cardPackages;
     private int cardAmount;
     private static CardSystem cardSystemInstance;
@@ -64,6 +70,15 @@ public class CardSystem extends MonoBehavior {
     }
 
     public com.saveandstudio.mario.cdd.Components.Card deliverCard() {
+        com.saveandstudio.mario.cdd.Components.Card card = null;
+        if (cardAmount >= 0) {
+            card = (Card) cards.get(cardAmount).getComponent(Card.class);
+            cardAmount--;
+        }
+        return card;
+    }
+
+    public com.saveandstudio.mario.cdd.Components.Card deliverCard(ArrayList<com.saveandstudio.mario.cdd.Prefabs.Card> cards) {
         com.saveandstudio.mario.cdd.Components.Card card = null;
         if (cardAmount >= 0) {
             card = (Card) cards.get(cardAmount).getComponent(Card.class);
@@ -270,7 +285,10 @@ public class CardSystem extends MonoBehavior {
                 cardAmount++;
             }
         }
-        Collections.shuffle(cards);
+        if (Global.player_id == 0) {
+            Random rnd = new Random(Global.seed);
+            Collections.shuffle(cards, rnd);
+        }
     }
 
     public void remove() {
@@ -296,7 +314,7 @@ public class CardSystem extends MonoBehavior {
         players.get(turn).turn = true;
     }
 
-    public ArrayList<Card> clientGetCards(){
+    public ArrayList<Card> clientGetCards() {
         Decoder decoder = new Decoder(Global.encodedString);
         cardPackages = new ArrayList<>();
         ArrayList<Card> temp = new ArrayList<>();
@@ -308,11 +326,11 @@ public class CardSystem extends MonoBehavior {
         for (int j = 0; j < 13; j++) {
             temp.add(cardPackages.get(j));
         }
-        for (int j = 13; j < 52; j++){
-            cardPackages.set(j-13 , cardPackages.get(j));
+        for (int j = 13; j < 52; j++) {
+            cardPackages.set(j - 13, cardPackages.get(j));
         }
-        for (int j = 39; j < 52; j++){
-            cardPackages.set(j , temp.get(j-39));
+        for (int j = 39; j < 52; j++) {
+            cardPackages.set(j, temp.get(j - 39));
         }
 //        for (int j = 0; j < 52; j++) {
 //            Log.d(TAG, "End: cardPackages:" + cardPackages.get(j).figure + " " + cardPackages.get(j).suit);
@@ -354,5 +372,9 @@ public class CardSystem extends MonoBehavior {
 
     public void print1() {
         Log.d(TAG, "1");
+    }
+
+    public ArrayList<com.saveandstudio.mario.cdd.Prefabs.Card> getCards() {
+        return cards;
     }
 }
