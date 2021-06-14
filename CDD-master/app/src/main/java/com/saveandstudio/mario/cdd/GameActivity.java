@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.saveandstudio.mario.cdd.Components.Card;
 import com.saveandstudio.mario.cdd.Components.CardSystem;
+import com.saveandstudio.mario.cdd.Components.OtherPlayer;
 import com.saveandstudio.mario.cdd.GameBasic.Decoder;
 import com.saveandstudio.mario.cdd.GameBasic.Global;
 import com.saveandstudio.mario.cdd.GameBasic.Input;
@@ -307,11 +308,14 @@ public class GameActivity extends AppCompatActivity {
                             Global.seed = Integer.parseInt(String.valueOf(message.obj));
                         } else {
                             // 客户端收到服务端发来的 出牌 信息
+                            Global.SendCard = String.valueOf(message.obj);
+                            Global.isSend = true;
                         }
                     } else {
                         Global.server_get_data_count++;
-
                         // 服务端收到客户端的 出牌 信息
+                        Global.SendCard = String.valueOf(message.obj);
+                        Global.isSend = true;
                     }
                     // 发消息用say(String)
                     break;

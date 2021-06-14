@@ -14,6 +14,7 @@ public class Global {
     public static Context surfaceContext;
     public static String encodedString = "";
     public static String SendCard = "51";
+    public static boolean isSend = false;
     public static boolean isServer = false;
     public static int player_id;
     public static boolean firstHand = true;

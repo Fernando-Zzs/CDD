@@ -1,6 +1,7 @@
 package com.saveandstudio.mario.cdd.Components;
 
 import android.util.Log;
+
 import com.saveandstudio.mario.cdd.GameBasic.MonoBehavior;
 
 import com.saveandstudio.mario.cdd.GameBasic.Global;
@@ -9,11 +10,11 @@ import com.saveandstudio.mario.cdd.GameBasic.Decoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
 import static android.content.ContentValues.TAG;
 
 public class OtherPlayer extends MonoBehavior {
     HandCardManager manager;
-    private boolean sendMessage = true; // 是否收到了消息
     public Decoder decoder;
     public ArrayList<Card> handCards;
 
@@ -28,7 +29,7 @@ public class OtherPlayer extends MonoBehavior {
                 if (CardSystem.getInstance().someOneWin) { // 判断当前牌局是否结束
                     CardSystem.getInstance().showWinState();
                 }
-                if (sendMessage) { // 如果收到信息
+                if (Global.isSend){ // 判断是否是刚收到信息的那一帧
                     if (Global.SendCard == "") { // 过
                         manager.passHandler();
                     } else { // 出牌
@@ -42,31 +43,43 @@ public class OtherPlayer extends MonoBehavior {
                         handCards = new ArrayList<>();
                         handCards = manager.getCards();
                         String[] result = Global.SendCard.split(",");
-                        for (int i=0; i< result.length; i++){ //外层循环遍历字符串
-                            for (int j=0; j<handCards.size(); j++){ // 内层循环遍历手牌
-                                if (handCards.get(j).ID == Integer.parseInt(result[i])){
+                        for (int i = 0; i < result.length; i++) { //外层循环遍历字符串
+                            for (int j = 0; j < handCards.size(); j++) { // 内层循环遍历手牌
+                                if (handCards.get(j).ID == Integer.parseInt(result[i])) {
                                     manager.addChosenCard(handCards.get(j));
                                 }
                             }
                         }
                         manager.showCardHandler();
                     }
+                    Global.isSend = false;
                 }
-            }
-            else {
-                if(sendMessage) {
-//                    ArrayList<Card> ret_card = new ArrayList<>();
-//                    ret_card = decoder.decodeCard(Global.SendCard);
-//                    for (int i = 0; i < ret_card.size(); i++) {
-//                        manager.addChosenCard(ret_card.get(i));
-//                        Log.d(TAG, "出的牌是: " + ret_card.get(i).suit + ret_card.get(i).figure);
-//                    }
-//                    manager.showCardHandler();
-                    // 当前为了测试，默认打出第一张牌
-                    handCards = new ArrayList<>();
-                    handCards = manager.getCards();
-                    manager.addChosenCard(handCards.get(0));
-                    manager.showCardHandler();
+            } else { // 是先手，则等待global消息
+                Log.d(TAG, "Update: 先手");
+                if (Global.isSend){ // 判断是否是刚收到信息的那一帧
+                    if (Global.SendCard == "") { // 过
+                        manager.passHandler();
+                    } else { // 出牌
+//                        ArrayList<Card> ret_card = new ArrayList<>();
+//                        ret_card = decoder.decodeCard(Global.SendCard);
+//                        for (int i = 0; i < ret_card.size(); i++) {
+//                            manager.addChosenCard(ret_card.get(i));
+//                            Log.d(TAG, "出的牌是: " + ret_card.get(i).suit + ret_card.get(i).figure);
+//                        }
+//                        manager.showCardHandler();
+                        handCards = new ArrayList<>();
+                        handCards = manager.getCards();
+                        String[] result = Global.SendCard.split(",");
+                        for (int i = 0; i < result.length; i++) { //外层循环遍历字符串
+                            for (int j = 0; j < handCards.size(); j++) { // 内层循环遍历手牌
+                                if (handCards.get(j).ID == Integer.parseInt(result[i])) {
+                                    manager.addChosenCard(handCards.get(j));
+                                }
+                            }
+                        }
+                        manager.showCardHandler();
+                    }
+                    Global.isSend = false;
                 }
             }
         }

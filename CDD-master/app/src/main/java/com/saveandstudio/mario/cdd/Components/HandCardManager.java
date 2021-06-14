@@ -159,7 +159,7 @@ public class HandCardManager extends MonoBehavior {
         handCards.removeAll(chosenCards);
         updatePositions();
         chosenCards.clear();
-        say("");
+
         turn = false;
     }
 
