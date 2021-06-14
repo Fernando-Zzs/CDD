@@ -417,7 +417,7 @@ public class GameActivity extends AppCompatActivity {
                 case 1:
                     // 过
                     Log.d(TAG, "handleMessage: guo");
-                    say(Global.outCards);
+                    say("-1");
                     break;
                 case 2:
                     // 出牌

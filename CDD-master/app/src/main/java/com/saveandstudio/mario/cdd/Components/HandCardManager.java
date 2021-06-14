@@ -152,7 +152,7 @@ public class HandCardManager extends MonoBehavior {
             if (i == 0){
                 Global.outCards = Integer.toString(chosenCards.get(i).ID);
             }else{
-                Global.outCards = Global.outCards + "," + chosenCards.get(i).ID;
+                Global.outCards = Global.outCards + "," + Integer.toString(chosenCards.get(i).ID);
             }
         }
         CardSystem.getInstance().showCards(chosenCards);
@@ -169,7 +169,6 @@ public class HandCardManager extends MonoBehavior {
     public void passHandler() {
         clearOutCards();
         CardSystem.getInstance().pass();
-        Global.outCards = "";
         if (Global.player_id == id) {
             GameActivity.state = 1;
         }

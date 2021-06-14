@@ -30,7 +30,7 @@ public class OtherPlayer extends MonoBehavior {
                     CardSystem.getInstance().showWinState();
                 }
                 if (Global.isSend){ // 判断是否是刚收到信息的那一帧
-                    if (Global.SendCard == "") { // 过
+                    if (Global.SendCard == "-1") { // 过
                         manager.passHandler();
                     } else { // 出牌
                         handCards = new ArrayList<>();
@@ -50,7 +50,7 @@ public class OtherPlayer extends MonoBehavior {
             } else { // 是先手，则等待global消息
                 Log.d(TAG, "Update: 先手");
                 if (Global.isSend){ // 判断是否是刚收到信息的那一帧
-                    if (Global.SendCard == "") { // 过
+                    if (Global.SendCard == "-1") { // 过
                         manager.passHandler();
                     } else { // 出牌
                         handCards = new ArrayList<>();
