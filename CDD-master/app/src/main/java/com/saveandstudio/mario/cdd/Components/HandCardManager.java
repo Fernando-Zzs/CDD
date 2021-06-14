@@ -9,6 +9,7 @@ import com.saveandstudio.mario.cdd.GameBasic.Decoder;
 
 import com.saveandstudio.mario.cdd.GameActivity;
 import com.saveandstudio.mario.cdd.GameBasic.*;
+import com.saveandstudio.mario.cdd.Prefabs.Game;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -57,7 +58,6 @@ public class HandCardManager extends MonoBehavior {
             Random rnd = new Random(Global.seed);
             Log.d(TAG, Global.seed + "");
             Collections.shuffle(CardSystem.getInstance().cards, rnd);
-            Log.d(TAG, "p1");
         }
 
         cardDesk = (CardDesk) getComponent(CardDesk.class);
@@ -66,7 +66,6 @@ public class HandCardManager extends MonoBehavior {
         Vector3 position = transform.getPosition();
         handCards = new ArrayList<>();
         outCards = new ArrayList<>();
-        Log.d(TAG, "p3");
         for (int i = 0; i < 13; i++) {
             Card card = CardSystem.getInstance().deliverCard();
 
@@ -78,24 +77,19 @@ public class HandCardManager extends MonoBehavior {
                 card.setSide(true);
             }
             card.setSide(true);
-            Log.d(TAG, "p6");
 
             handCards.add(card);
-            Log.d(TAG, "p7");
 
             Collections.sort(handCards);
             if (card.getSuit() + card.getFigure() == 0) {
                 CardSystem.getInstance().setFirstTurn(id);
             }
-            Log.d(TAG, "p8");
 
             if (i == 12) {
                 count++;
             }
-            Log.d(TAG, "p9");
         }
         updatePositions();
-        Log.d(TAG, "p10");
     }
 
     public void updatePositions() {
@@ -159,13 +153,24 @@ public class HandCardManager extends MonoBehavior {
         handCards.removeAll(chosenCards);
         updatePositions();
         chosenCards.clear();
-        say("");
+<<<<<<< HEAD
+        if (Global.player_id == id) {
+            GameActivity.state = 2;
+            Log.d(TAG, GameActivity.state + "");
+        }
+=======
+
+>>>>>>> 3989754714438d1f7235eb932cd9b6d42ad40560
         turn = false;
     }
 
     public void passHandler() {
         clearOutCards();
         CardSystem.getInstance().pass();
+        if (Global.player_id == id) {
+            GameActivity.state = 1;
+            Log.d(TAG, GameActivity.state + "");
+        }
         turn = false;
     }
 

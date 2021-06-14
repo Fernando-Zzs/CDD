@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.saveandstudio.mario.cdd.Components.Card;
 import com.saveandstudio.mario.cdd.Components.CardSystem;
+import com.saveandstudio.mario.cdd.Components.OtherPlayer;
 import com.saveandstudio.mario.cdd.GameBasic.Decoder;
 import com.saveandstudio.mario.cdd.GameBasic.Global;
 import com.saveandstudio.mario.cdd.GameBasic.Input;
@@ -31,6 +32,7 @@ import com.saveandstudio.mario.cdd.GameBasic.Physics;
 import com.saveandstudio.mario.cdd.GameBasic.Renderer;
 import com.saveandstudio.mario.cdd.Scenes.Scene;
 import com.saveandstudio.mario.cdd.connect.AcceptThread;
+import com.saveandstudio.mario.cdd.connect.ClickThread;
 import com.saveandstudio.mario.cdd.connect.ConnectThread;
 import com.saveandstudio.mario.cdd.connect.Constant;
 
@@ -71,6 +73,10 @@ public class GameActivity extends AppCompatActivity {
     private Button mBtn_start_game;
     private ListView mLv_device_list;
 
+    // 0没点，1点过，2点出牌
+    public static int state = 0;
+    private Handler clickHandler = new ClickHandler();
+    private ClickThread clickThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +139,9 @@ public class GameActivity extends AppCompatActivity {
             mConnectThread = new ConnectThread(device, mController.getAdapter(), mUIHandler);
             mConnectThread.start();
         }
+
+        clickThread = new ClickThread(clickHandler);
+        clickThread.start();
     }
 
     public void setOnClickListener() {
@@ -307,11 +316,14 @@ public class GameActivity extends AppCompatActivity {
                             Global.seed = Integer.parseInt(String.valueOf(message.obj));
                         } else {
                             // 客户端收到服务端发来的 出牌 信息
+                            Global.SendCard = String.valueOf(message.obj);
+                            Global.isSend = true;
                         }
                     } else {
                         Global.server_get_data_count++;
-
                         // 服务端收到客户端的 出牌 信息
+                        Global.SendCard = String.valueOf(message.obj);
+                        Global.isSend = true;
                     }
                     // 发消息用say(String)
                     break;
@@ -394,6 +406,27 @@ public class GameActivity extends AppCompatActivity {
             int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
             decorView.setSystemUiVisibility(uiOptions);
+        }
+    }
+
+    private class ClickHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    // 过
+                    Log.d(TAG, "handleMessage: guo");
+
+                    break;
+                case 2:
+                    // 出牌
+                    Log.d(TAG, "handleMessage: chu");
+
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
