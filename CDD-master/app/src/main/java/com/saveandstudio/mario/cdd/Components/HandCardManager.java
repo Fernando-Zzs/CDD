@@ -153,14 +153,10 @@ public class HandCardManager extends MonoBehavior {
         handCards.removeAll(chosenCards);
         updatePositions();
         chosenCards.clear();
-<<<<<<< HEAD
+
         if (Global.player_id == id) {
             GameActivity.state = 2;
-            Log.d(TAG, GameActivity.state + "");
         }
-=======
-
->>>>>>> 3989754714438d1f7235eb932cd9b6d42ad40560
         turn = false;
     }
 
@@ -169,7 +165,6 @@ public class HandCardManager extends MonoBehavior {
         CardSystem.getInstance().pass();
         if (Global.player_id == id) {
             GameActivity.state = 1;
-            Log.d(TAG, GameActivity.state + "");
         }
         turn = false;
     }
