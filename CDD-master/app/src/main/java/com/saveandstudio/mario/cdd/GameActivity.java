@@ -417,12 +417,12 @@ public class GameActivity extends AppCompatActivity {
                 case 1:
                     // 过
                     Log.d(TAG, "handleMessage: guo");
-
+                    say(Global.outCards);
                     break;
                 case 2:
                     // 出牌
                     Log.d(TAG, "handleMessage: chu");
-
+                    say(Global.outCards);
                     break;
                 default:
                     break;

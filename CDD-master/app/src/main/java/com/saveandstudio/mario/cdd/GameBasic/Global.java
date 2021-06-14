@@ -13,11 +13,12 @@ import static android.content.ContentValues.TAG;
 public class Global {
     public static Context surfaceContext;
     public static String encodedString = "";
-    public static String SendCard = "51";
-    public static boolean isSend = false;
+    public static String SendCard = ""; // 用于接收另一玩家发送的消息
+    public static boolean isSend = false; // 判断当前是否是出牌后的那一帧
+    public static String outCards; // 当前控制的玩家的出牌信息，仅用于发送
     public static boolean isServer = false;
     public static int player_id;
-    public static boolean firstHand = true;
+    public static boolean firstHand = true; // 用于记录是否为开局第一步
     public static ArrayList<Card> cardPackages = new ArrayList<>();
     public static int client_get_data_count = 0;
     public static int server_get_data_count = 0;
