@@ -303,8 +303,17 @@ public class GameActivity extends AppCompatActivity {
                     if (Global.player_id == 1) {
                         Global.client_get_data_count++;
 
-                        Global.seed = Integer.parseInt(String.valueOf(message.obj));
+                        if (Global.client_get_data_count == 1) {
+                            Global.seed = Integer.parseInt(String.valueOf(message.obj));
+                        } else {
+                            // 客户端收到服务端发来的 出牌 信息
+                        }
+                    } else {
+                        Global.server_get_data_count++;
+
+                        // 服务端收到客户端的 出牌 信息
                     }
+                    // 发消息用say(String)
                     break;
                 case Constant.MSG_ERROR:
                     showToast("error:" + String.valueOf(message.obj));

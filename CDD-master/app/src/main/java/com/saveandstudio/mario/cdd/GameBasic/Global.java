@@ -19,6 +19,7 @@ public class Global {
     public static boolean firstHand = true;
     public static ArrayList<Card> cardPackages = new ArrayList<>();
     public static int client_get_data_count = 0;
+    public static int server_get_data_count = 0;
     public static int seed;
 
     public static void encode() {
