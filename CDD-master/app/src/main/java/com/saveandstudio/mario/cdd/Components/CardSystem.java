@@ -277,11 +277,13 @@ public class CardSystem extends MonoBehavior {
         }
         //Prepare cards
         cardAmount = -1;
-        for (int suit = 0; suit <= 3; suit++) {
-            for (int figure = 0; figure <= 12; figure++) {
+        int countID = 0;
+        for (int figure = 0; figure <= 12; figure++) {
+            for (int suit = 0; suit <= 3; suit++) {
                 cards.add(new com.saveandstudio.mario.cdd.Prefabs.Card(suit, figure, new Transform(
                         new Vector3(GameViewInfo.centerW, GameViewInfo.centerH, 0),
-                        0, Vector3.one)));
+                        0, Vector3.one),countID));
+                countID++;
                 cardAmount++;
             }
         }

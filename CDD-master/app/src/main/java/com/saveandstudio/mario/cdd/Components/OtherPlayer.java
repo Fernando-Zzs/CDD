@@ -32,11 +32,22 @@ public class OtherPlayer extends MonoBehavior {
                     if (Global.SendCard == "") { // 过
                         manager.passHandler();
                     } else { // 出牌
-                        ArrayList<Card> ret_card = new ArrayList<>();
-                        ret_card = decoder.decodeCard(Global.SendCard);
-                        for (int i = 0; i < ret_card.size(); i++) {
-                            manager.addChosenCard(ret_card.get(i));
-                            Log.d(TAG, "出的牌是: " + ret_card.get(i).suit + ret_card.get(i).figure);
+//                        ArrayList<Card> ret_card = new ArrayList<>();
+//                        ret_card = decoder.decodeCard(Global.SendCard);
+//                        for (int i = 0; i < ret_card.size(); i++) {
+//                            manager.addChosenCard(ret_card.get(i));
+//                            Log.d(TAG, "出的牌是: " + ret_card.get(i).suit + ret_card.get(i).figure);
+//                        }
+//                        manager.showCardHandler();
+                        handCards = new ArrayList<>();
+                        handCards = manager.getCards();
+                        String[] result = Global.SendCard.split(",");
+                        for (int i=0; i< result.length; i++){ //外层循环遍历字符串
+                            for (int j=0; j<handCards.size(); j++){ // 内层循环遍历手牌
+                                if (handCards.get(j).ID == Integer.parseInt(result[i])){
+                                    manager.addChosenCard(handCards.get(j));
+                                }
+                            }
                         }
                         manager.showCardHandler();
                     }

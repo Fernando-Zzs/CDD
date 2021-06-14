@@ -11,6 +11,7 @@ import com.saveandstudio.mario.cdd.Renderers.CardRenderer;
 public class Card extends MonoBehavior implements Comparable<Card> {
     public int suit;
     public int figure;
+    public int ID;
     private boolean side = false;
     private HandCardManager manager;
     public TransformToTarget transformToTarget;
@@ -174,6 +175,10 @@ public class Card extends MonoBehavior implements Comparable<Card> {
 
     public void setManager(HandCardManager manager) {
         this.manager = manager;
+    }
+
+    public void setID(int id){
+        this.ID = id;
     }
 
     public HandCardManager getManager() {

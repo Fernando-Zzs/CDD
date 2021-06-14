@@ -13,7 +13,7 @@ import static android.content.ContentValues.TAG;
 public class Global {
     public static Context surfaceContext;
     public static String encodedString = "";
-    public static String SendCard = "";
+    public static String SendCard = "51";
     public static boolean isServer = false;
     public static int player_id;
     public static boolean firstHand = true;
