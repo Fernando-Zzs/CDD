@@ -1,5 +1,7 @@
 package com.saveandstudio.mario.cdd.Prefabs;
 
+import android.util.Log;
+
 import com.saveandstudio.mario.cdd.Components.*;
 import com.saveandstudio.mario.cdd.GameBasic.*;
 import com.saveandstudio.mario.cdd.R;

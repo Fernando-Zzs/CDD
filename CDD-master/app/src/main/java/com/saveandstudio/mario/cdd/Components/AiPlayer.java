@@ -1,11 +1,13 @@
 package com.saveandstudio.mario.cdd.Components;
 
 import android.util.Log;
+
 import com.saveandstudio.mario.cdd.GameBasic.MonoBehavior;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
 //
 public class AiPlayer extends MonoBehavior {
     HandCardManager manager;
@@ -37,13 +39,14 @@ public class AiPlayer extends MonoBehavior {
                 startThinkTime = System.currentTimeMillis();
                 thinking = true;
             } else if (System.currentTimeMillis() - startThinkTime >= thinkTime) {
-                if(CardSystem.getInstance().someOneWin){
+                if (CardSystem.getInstance().someOneWin) {
                     CardSystem.getInstance().showWinState();
-                }
-                else if (chooseCards())
+                } else if (chooseCards())
                     manager.showCardHandler();
-                else
+                else {
                     manager.passHandler();
+                    Log.d("0", "Update: pass");
+                }
                 thinking = false;
             }
         }
@@ -369,7 +372,7 @@ public class AiPlayer extends MonoBehavior {
             }
         }
         int differ = smallPack.size() - bigPack.size();
-        if (differ < - 2) {
+        if (differ < -2) {
             for (Card card : smallPack) {
                 for (int i = 0; i < 5; i++) {
                     card.weights[i] *= decreaseRate_big;
@@ -391,7 +394,7 @@ public class AiPlayer extends MonoBehavior {
                 for (int j = 0; j < 5; j++) {
                     bigPack.get(i).weights[j] *= (decreaseRate_big + decreaseRate_small) / 2;
                     bigPack.get(i).weights[j] -= (float) differ * decreaseGap;
-                    bigPack.get(i).weights[j] -= ((float) i / (float)bigPack.size()) * decreaseGap / 2;
+                    bigPack.get(i).weights[j] -= ((float) i / (float) bigPack.size()) * decreaseGap / 2;
                 }
 
             }

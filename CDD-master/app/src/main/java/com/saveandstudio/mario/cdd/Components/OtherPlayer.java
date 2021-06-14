@@ -30,8 +30,10 @@ public class OtherPlayer extends MonoBehavior {
                     CardSystem.getInstance().showWinState();
                 }
                 if (Global.isSend){ // 判断是否是刚收到信息的那一帧
-                    if (Global.SendCard == "-1") { // 过
+                    Log.d(TAG, "Update: sendCard"+Global.SendCard);
+                    if (Global.SendCard.equals("-1")) { // 过
                         manager.passHandler();
+                        Log.d("0", "Update: pass");
                     } else { // 出牌
                         handCards = new ArrayList<>();
                         handCards = manager.getCards();

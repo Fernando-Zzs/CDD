@@ -182,12 +182,13 @@ public class GameActivity extends AppCompatActivity {
                     break;
                 case R.id.btn_encode:
                     say(Global.encodedString);
+                    break;
                 case R.id.btn_hide_devices:
                     mBtn_bound_devices.setVisibility(View.VISIBLE);
                     mBtn_hide_devices.setVisibility(View.GONE);
                     mLv_device_list.setVisibility(View.GONE);
                 case R.id.btn_start_game:
-
+                    break;
                 default:
                     break;
             }

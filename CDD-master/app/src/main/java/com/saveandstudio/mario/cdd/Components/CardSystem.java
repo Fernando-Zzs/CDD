@@ -231,11 +231,16 @@ public class CardSystem extends MonoBehavior {
                 new Vector3(0, 1, 0), Vector3.zero));
         win.addComponent(new AutoPivot());
         int state;
-        if ((turn + 3) % 4 == 0) {
+//        if ((turn + 3) % 4 == 0) {
+//            state = R.mipmap.win;
+//        } else {
+//            state = R.mipmap.lose;
+//
+//        }
+        if (Global.player_id == turn - 1) {
             state = R.mipmap.win;
         } else {
             state = R.mipmap.lose;
-
         }
         win.addComponent(new Renderer(state));
         ((TransformToTarget) win.addComponent(new TransformToTarget())).beginScale(Vector3.one, 20 * GameViewInfo.deltaTime);
@@ -282,7 +287,7 @@ public class CardSystem extends MonoBehavior {
             for (int suit = 0; suit <= 3; suit++) {
                 cards.add(new com.saveandstudio.mario.cdd.Prefabs.Card(suit, figure, new Transform(
                         new Vector3(GameViewInfo.centerW, GameViewInfo.centerH, 0),
-                        0, Vector3.one),countID));
+                        0, Vector3.one), countID));
                 countID++;
                 cardAmount++;
             }
