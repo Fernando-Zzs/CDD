@@ -33,13 +33,6 @@ public class OtherPlayer extends MonoBehavior {
                     if (Global.SendCard == "") { // 过
                         manager.passHandler();
                     } else { // 出牌
-//                        ArrayList<Card> ret_card = new ArrayList<>();
-//                        ret_card = decoder.decodeCard(Global.SendCard);
-//                        for (int i = 0; i < ret_card.size(); i++) {
-//                            manager.addChosenCard(ret_card.get(i));
-//                            Log.d(TAG, "出的牌是: " + ret_card.get(i).suit + ret_card.get(i).figure);
-//                        }
-//                        manager.showCardHandler();
                         handCards = new ArrayList<>();
                         handCards = manager.getCards();
                         String[] result = Global.SendCard.split(",");
@@ -60,13 +53,6 @@ public class OtherPlayer extends MonoBehavior {
                     if (Global.SendCard == "") { // 过
                         manager.passHandler();
                     } else { // 出牌
-//                        ArrayList<Card> ret_card = new ArrayList<>();
-//                        ret_card = decoder.decodeCard(Global.SendCard);
-//                        for (int i = 0; i < ret_card.size(); i++) {
-//                            manager.addChosenCard(ret_card.get(i));
-//                            Log.d(TAG, "出的牌是: " + ret_card.get(i).suit + ret_card.get(i).figure);
-//                        }
-//                        manager.showCardHandler();
                         handCards = new ArrayList<>();
                         handCards = manager.getCards();
                         String[] result = Global.SendCard.split(",");
