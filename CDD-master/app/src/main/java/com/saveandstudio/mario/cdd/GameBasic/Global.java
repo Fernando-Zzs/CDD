@@ -12,6 +12,7 @@ import static android.content.ContentValues.TAG;
 
 public class Global {
     public static Context surfaceContext;
+    public static boolean proxy = false; // 记录是否托管
     public static String encodedString = "";
     public static String SendCard = ""; // 用于接收另一玩家发送的消息
     public static boolean isSend = false; // 判断当前是否是出牌后的那一帧

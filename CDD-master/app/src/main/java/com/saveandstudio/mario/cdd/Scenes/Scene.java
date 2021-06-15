@@ -28,7 +28,7 @@ public class Scene {
     public void prePareScene() {
         clear = false;
         Game game = new Game();
-        if(Global.player_id==0){
+        if(Global.player_id == 0){
             Player player = new Player(0, new Transform(new Vector3(GameViewInfo.centerW, GameViewInfo.centerH + 550, 0), 0,
                     Vector3.one), true, 0);
             //player.addComponent(new AiPlayer());
@@ -60,7 +60,7 @@ public class Scene {
             passButton.addComponent(new PassButton((HandCardManager) player.getComponent(HandCardManager.class)));
             prepared = true;
         }
-        else if(Global.player_id==1){
+        else if(Global.player_id == 1){
             Player player = new Player(1, new Transform(new Vector3(GameViewInfo.centerW - 400, GameViewInfo.centerH - 50, 0), 0,
                     Vector3.one), true, 0);
             player.addComponent(new OtherPlayer());
