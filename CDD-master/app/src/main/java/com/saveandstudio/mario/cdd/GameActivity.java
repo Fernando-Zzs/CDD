@@ -46,6 +46,7 @@ import static android.content.ContentValues.TAG;
 
 public class GameActivity extends AppCompatActivity {
 
+    public static GameActivity gameActivity;
     private Toast newGame_hint;
     private boolean exit = false;
     private static long lastClickTime = System.currentTimeMillis();
