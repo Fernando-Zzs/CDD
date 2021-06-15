@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.saveandstudio.mario.cdd.Components.CardSystem;
 import com.saveandstudio.mario.cdd.GameBasic.Decoder;
@@ -59,6 +60,7 @@ public class CSActivity extends AppCompatActivity {
                     intent = new Intent(CSActivity.this, GameActivity.class);
                     Global.isServer = false;
                     Global.player_id = 1;
+                    Toast.makeText(CSActivity.this, "正在进入游戏……", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.btn_bound_devices:
                 default:

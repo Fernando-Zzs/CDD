@@ -149,9 +149,9 @@ public class HandCardManager extends MonoBehavior {
         //Show
         for (int i = 0; i < chosenCards.size(); i++) {
             chosenCards.get(i).setSide(true);
-            if (i == 0){
+            if (i == 0) {
                 Global.outCards = Integer.toString(chosenCards.get(i).ID);
-            }else{
+            } else {
                 Global.outCards = Global.outCards + "," + Integer.toString(chosenCards.get(i).ID);
             }
         }

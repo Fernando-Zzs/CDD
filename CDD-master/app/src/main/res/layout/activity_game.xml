@@ -21,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
@@ -82,6 +83,7 @@
         android:layout_height="wrap_content"
         android:divider="#e90423"
         android:dividerHeight="1px"
+        android:visibility="gone"
         tools:ignore="MissingConstraints">
 
 
