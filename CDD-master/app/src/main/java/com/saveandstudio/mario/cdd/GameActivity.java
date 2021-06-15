@@ -72,6 +72,8 @@ public class GameActivity extends AppCompatActivity {
     private Button mBtn_encode;
     private Button mBtn_hide_devices;
     private Button mBtn_start_game;
+    private Button mBtn_start_auto_play;
+    private Button mBtn_cancel_auto_play;
     private ListView mLv_device_list;
 
     // 0没点，1点过，2点出牌
@@ -107,6 +109,8 @@ public class GameActivity extends AppCompatActivity {
         mBtn_hide_devices = findViewById(R.id.btn_hide_devices);
         mLv_device_list = findViewById(R.id.device_list);
         mBtn_start_game = findViewById(R.id.btn_start_game);
+        mBtn_start_auto_play = findViewById(R.id.btn_start_auto_play);
+        mBtn_cancel_auto_play = findViewById(R.id.btn_cancel_auto_play);
 
         if (Global.isServer) {
             mBtn_bound_devices.setVisibility(View.GONE);
@@ -153,6 +157,8 @@ public class GameActivity extends AppCompatActivity {
         mBtn_encode.setOnClickListener(onClick);
         mBtn_hide_devices.setOnClickListener(onClick);
         mBtn_start_game.setOnClickListener(onClick);
+        mBtn_start_auto_play.setOnClickListener(onClick);
+        mBtn_cancel_auto_play.setOnClickListener(onClick);
     }
 
     private class OnClick implements View.OnClickListener {
@@ -189,6 +195,18 @@ public class GameActivity extends AppCompatActivity {
                     mBtn_hide_devices.setVisibility(View.GONE);
                     mLv_device_list.setVisibility(View.GONE);
                 case R.id.btn_start_game:
+                    break;
+                case R.id.btn_start_auto_play:
+                    mBtn_start_auto_play.setVisibility(View.GONE);
+                    mBtn_cancel_auto_play.setVisibility(View.VISIBLE);
+                    // 开始托管
+                    Global.proxy = true;
+                    break;
+                case R.id.btn_cancel_auto_play:
+                    mBtn_start_auto_play.setVisibility(View.VISIBLE);
+                    mBtn_cancel_auto_play.setVisibility(View.GONE);
+                    // 取消托管
+                    Global.proxy = false;
                     break;
                 default:
                     break;

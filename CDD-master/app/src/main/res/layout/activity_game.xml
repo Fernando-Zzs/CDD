@@ -21,14 +21,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
             android:id="@+id/btn_hello"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="hello" />
+            android:text="hello"
+            android:visibility="gone" />
 
 
         <Button
@@ -36,6 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="等待连接"
+            android:visibility="gone"
             tools:ignore="MissingConstraints" />
 
         <Button
@@ -43,6 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="已绑定设备"
+            android:visibility="gone"
             tools:ignore="MissingConstraints" />
 
         <Button
@@ -57,13 +59,15 @@
             android:id="@+id/btn_encode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="发送encode" />
+            android:text="发送encode"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btn_start_game"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="开始游戏" />
+            android:text="开始游戏"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/main_menu"
@@ -72,8 +76,21 @@
             android:layout_weight="1"
             android:background="@drawable/main_game_button"
             android:text="退回主菜单"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:visibility="gone" />
 
+        <Button
+            android:id="@+id/btn_start_auto_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="托管" />
+
+        <Button
+            android:id="@+id/btn_cancel_auto_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消托管"
+            android:visibility="gone" />
 
     </LinearLayout>
 

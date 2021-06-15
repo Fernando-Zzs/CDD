@@ -61,6 +61,7 @@ public class HandCardManager extends MonoBehavior {
 
     @Override
     public void Start() {
+        manager = (HandCardManager) getComponent(HandCardManager.class);
         if (Global.player_id == 1 && !blocked) {
             try {
                 Thread.sleep(5000); //1000 毫秒，也就是1秒.
@@ -117,7 +118,7 @@ public class HandCardManager extends MonoBehavior {
     }
 
     public void outCardAnimation() {
-        float speed = 30 * GameViewInfo.deltaTime;
+        float speed = 9999 * GameViewInfo.deltaTime;
         for (int i = 0; i < outCards.size(); i++) {
             Card card = outCards.get(i);
             card.position = Vector3.lerp(new Vector3(GameViewInfo.centerW, GameViewInfo.centerH - 100, 0), transform.getPosition(), (float) 0.3).add(
@@ -130,7 +131,7 @@ public class HandCardManager extends MonoBehavior {
 
     public void clearOutCards() {
         //Animation
-        float speed = 30 * GameViewInfo.deltaTime;
+        float speed = 9999 * GameViewInfo.deltaTime;
         for (int i = 0; i < outCards.size(); i++) {
             Card card = outCards.get(i);
             card.transformToTarget.beginScale(Vector3.zero, speed);
@@ -190,32 +191,36 @@ public class HandCardManager extends MonoBehavior {
 
     @Override
     public void Update() {
-        if(Global.proxy){ // 点击了托管
-            if (manager.turn) {
+        if (Global.proxy) { // 点击了托管
+            enableShowCard = CardSystem.getInstance().judgeCards(chosenCards) && turn;
+            if (CardSystem.getInstance().getTurnAmount() == 0 || CardSystem.getInstance().getLastPlayerID() == id)
+                enablePass = false;
+            else
+                enablePass = turn;
+            if (manager.turn&&manager.id==Global.player_id) {
                 if (!thinking) {
                     lastCards = CardSystem.getInstance().getLastCards();
                     handCards = manager.getCards();
                     startThinkTime = System.currentTimeMillis();
                     thinking = true;
-
                 } else if (System.currentTimeMillis() - startThinkTime >= thinkTime) {
-                    if(CardSystem.getInstance().someOneWin){
+                    if (CardSystem.getInstance().someOneWin) {
                         CardSystem.getInstance().showWinState();
-                    }
-                    else if (chooseCards())
+                    } else if (chooseCards())
                         manager.showCardHandler();
                     else
                         manager.passHandler();
                     thinking = false;
                 }
             }
-        } else{
+        } else {
             enableShowCard = CardSystem.getInstance().judgeCards(chosenCards) && turn;
             if (CardSystem.getInstance().getTurnAmount() == 0 || CardSystem.getInstance().getLastPlayerID() == id)
                 enablePass = false;
             else
                 enablePass = turn;
         }
+
     }
 
     public int getId() {
@@ -546,7 +551,7 @@ public class HandCardManager extends MonoBehavior {
             }
         }
         int differ = smallPack.size() - bigPack.size();
-        if (differ < - 2) {
+        if (differ < -2) {
             for (Card card : smallPack) {
                 for (int i = 0; i < 5; i++) {
                     card.weights[i] *= decreaseRate_big;
@@ -568,7 +573,7 @@ public class HandCardManager extends MonoBehavior {
                 for (int j = 0; j < 5; j++) {
                     bigPack.get(i).weights[j] *= (decreaseRate_big + decreaseRate_small) / 2;
                     bigPack.get(i).weights[j] -= (float) differ * decreaseGap;
-                    bigPack.get(i).weights[j] -= ((float) i / (float)bigPack.size()) * decreaseGap / 2;
+                    bigPack.get(i).weights[j] -= ((float) i / (float) bigPack.size()) * decreaseGap / 2;
                 }
 
             }
