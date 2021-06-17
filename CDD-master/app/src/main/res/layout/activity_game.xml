@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/desk"
     tools:context=".GameActivity">
 
     <com.saveandstudio.mario.cdd.MySurfaceView
@@ -22,6 +22,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/btn_start_auto_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="托管" />
 
         <Button
             android:id="@+id/btn_hello"
@@ -74,16 +80,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/main_game_button"
+            android:background="#00000000"
             android:text="退回主菜单"
-            android:textSize="24sp"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/btn_start_auto_play"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="托管" />
+            android:textSize="20sp"
+            />
 
         <Button
             android:id="@+id/btn_cancel_auto_play"

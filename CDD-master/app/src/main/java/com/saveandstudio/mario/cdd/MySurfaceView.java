@@ -34,6 +34,8 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
     private int viewW = 9, viewH = 16;
     private long frameDeltaTime = 16;
 
+    Bitmap bmp = BitmapFactory.decodeResource(getResources(),R.drawable.desk);
+
     public MySurfaceView(Context context) {
         this(context, null);
     }
@@ -81,7 +83,7 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
     private void render(Canvas canvas) {
         try{
             paint.setColor(getResources().getColor(R.color.colorPrimary));
-            canvas.drawRect(0, 0, this.getWidth(), this.getHeight(), paint);
+            canvas.drawBitmap(bmp, null, new Rect(0,0,this.getWidth(), this.getHeight()),paint);
             synchronized (Renderer.renderersList){
                 if (Renderer.renderersList != null && !Renderer.clear) {
                     //sort
