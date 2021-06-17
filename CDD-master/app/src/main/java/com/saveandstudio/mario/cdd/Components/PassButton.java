@@ -1,8 +1,6 @@
 package com.saveandstudio.mario.cdd.Components;
 
-import android.util.Log;
 import com.saveandstudio.mario.cdd.GameBasic.*;
-import com.saveandstudio.mario.cdd.R;
 import com.saveandstudio.mario.cdd.Renderers.ButtonRenderer;
 
 public class PassButton extends MonoBehavior {
@@ -11,9 +9,9 @@ public class PassButton extends MonoBehavior {
     Transform transform;
     TransformToTarget transformToTarget;
     ButtonRenderer renderer;
-    HandCardManager manager;
+    Player manager;
 
-    public PassButton(HandCardManager manager){
+    public PassButton(Player manager){
         this.manager = manager;
     }
 

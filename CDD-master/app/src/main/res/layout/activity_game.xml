@@ -7,6 +7,7 @@
     android:background="@drawable/desk"
     tools:context=".GameActivity">
 
+
     <com.saveandstudio.mario.cdd.MySurfaceView
         android:id="@+id/game_view"
         android:layout_width="0dp"
@@ -15,6 +16,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints">
+
+        <Button
+            android:id="@+id/main_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/btn_game"
+            android:text="返回"
+            android:textSize="20sp"
+            tools:ignore="MissingConstraints" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -28,15 +47,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="#397166"
-            android:text="托管" />
+            android:background="@drawable/btn_game"
+            android:text="托管"
+
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btn_cancel_auto_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:background="@drawable/btn_game"
             android:text="取消托管"
+            android:textSize="20sp"
             android:visibility="gone" />
 
         <TextView
@@ -90,14 +113,6 @@
             android:layout_height="wrap_content"
             android:text="开始游戏"
             android:visibility="gone" />
-
-        <Button
-            android:id="@+id/main_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="#397166"
-            android:text="返回" />
 
 
     </LinearLayout>

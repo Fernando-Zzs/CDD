@@ -3,7 +3,6 @@ package com.saveandstudio.mario.cdd.Scenes;
 import com.saveandstudio.mario.cdd.Components.*;
 import com.saveandstudio.mario.cdd.GameBasic.*;
 import com.saveandstudio.mario.cdd.Prefabs.Game;
-import com.saveandstudio.mario.cdd.Prefabs.Player;
 import com.saveandstudio.mario.cdd.R;
 import com.saveandstudio.mario.cdd.Renderers.ButtonRenderer;
 
@@ -29,18 +28,18 @@ public class Scene {
         clear = false;
         Game game = new Game();
         if(Global.player_id == 0){
-            Player player = new Player(0, new Transform(new Vector3(GameViewInfo.centerW, GameViewInfo.centerH + 610, 0), 0,
+            com.saveandstudio.mario.cdd.Prefabs.Player player = new com.saveandstudio.mario.cdd.Prefabs.Player(0, new Transform(new Vector3(GameViewInfo.centerW, GameViewInfo.centerH + 610, 0), 0,
                     Vector3.one), true, 0);
-            //player.addComponent(new AiPlayer());
-            Player Rplayer1 = new Player(1, new Transform(new Vector3(GameViewInfo.centerW + 400, GameViewInfo.centerH - 50, 0), 0,
+            //player.addComponent(new Robot());
+            com.saveandstudio.mario.cdd.Prefabs.Player Rplayer1 = new com.saveandstudio.mario.cdd.Prefabs.Player(1, new Transform(new Vector3(GameViewInfo.centerW + 400, GameViewInfo.centerH - 50, 0), 0,
                     Vector3.one), true, 1);
             Rplayer1.addComponent(new OtherPlayer());
-            Player Rplayer2 = new Player(0, new Transform(new Vector3(GameViewInfo.centerW, GameViewInfo.centerH - 650, 0), 0,
+            com.saveandstudio.mario.cdd.Prefabs.Player Rplayer2 = new com.saveandstudio.mario.cdd.Prefabs.Player(0, new Transform(new Vector3(GameViewInfo.centerW, GameViewInfo.centerH - 650, 0), 0,
                     Vector3.one), false, 2);
-            Rplayer2.addComponent(new AiPlayer());
-            Player Rplayer3 = new Player(1, new Transform(new Vector3(GameViewInfo.centerW - 400, GameViewInfo.centerH - 50, 0), 0,
+            Rplayer2.addComponent(new Robot());
+            com.saveandstudio.mario.cdd.Prefabs.Player Rplayer3 = new com.saveandstudio.mario.cdd.Prefabs.Player(1, new Transform(new Vector3(GameViewInfo.centerW - 400, GameViewInfo.centerH - 50, 0), 0,
                     Vector3.one), false, 3);
-            Rplayer3.addComponent(new AiPlayer());
+            Rplayer3.addComponent(new Robot());
 
             //show card button
             GameObject showCardButton = new GameObject(new Transform(new Vector3(GameViewInfo.centerW + 120, GameViewInfo.centerH + 310, 100), 0,
@@ -49,7 +48,7 @@ public class Scene {
             showCardButton.addComponent(new AutoPivot());
             showCardButton.addComponent(new BoxCollider());
             showCardButton.addComponent(new AutoCollider());
-            showCardButton.addComponent(new ShowCardButton((HandCardManager) player.getComponent(HandCardManager.class)));
+            showCardButton.addComponent(new ShowCardButton((Player) player.getComponent(Player.class)));
             //pass button
             GameObject passButton = new GameObject(new Transform(new Vector3(GameViewInfo.centerW - 120, GameViewInfo.centerH + 310, 100), 0,
                     new Vector3((float) 1.5, (float) 1.5, 1), Vector3.zero));
@@ -57,22 +56,22 @@ public class Scene {
             passButton.addComponent(new AutoPivot());
             passButton.addComponent(new BoxCollider());
             passButton.addComponent(new AutoCollider());
-            passButton.addComponent(new PassButton((HandCardManager) player.getComponent(HandCardManager.class)));
+            passButton.addComponent(new PassButton((Player) player.getComponent(Player.class)));
             prepared = true;
         }
         else if(Global.player_id == 1){
-            Player player = new Player(1, new Transform(new Vector3(GameViewInfo.centerW - 400, GameViewInfo.centerH - 50, 0), 0,
+            com.saveandstudio.mario.cdd.Prefabs.Player player = new com.saveandstudio.mario.cdd.Prefabs.Player(1, new Transform(new Vector3(GameViewInfo.centerW - 400, GameViewInfo.centerH - 50, 0), 0,
                     Vector3.one), true, 0);
             player.addComponent(new OtherPlayer());
-            Player Rplayer1 = new Player(0, new Transform(new Vector3(GameViewInfo.centerW, GameViewInfo.centerH + 610, 0), 0,
+            com.saveandstudio.mario.cdd.Prefabs.Player Rplayer1 = new com.saveandstudio.mario.cdd.Prefabs.Player(0, new Transform(new Vector3(GameViewInfo.centerW, GameViewInfo.centerH + 610, 0), 0,
                     Vector3.one), true, 1);
-            //Rplayer1.addComponent(new AiPlayer());
-            Player Rplayer2 = new Player(1, new Transform(new Vector3(GameViewInfo.centerW + 400, GameViewInfo.centerH - 50, 0), 0,
+            //Rplayer1.addComponent(new Robot());
+            com.saveandstudio.mario.cdd.Prefabs.Player Rplayer2 = new com.saveandstudio.mario.cdd.Prefabs.Player(1, new Transform(new Vector3(GameViewInfo.centerW + 400, GameViewInfo.centerH - 50, 0), 0,
                     Vector3.one), false, 2);
-            Rplayer2.addComponent(new AiPlayer());
-            Player Rplayer3 = new Player(0, new Transform(new Vector3(GameViewInfo.centerW, GameViewInfo.centerH - 650, 0), 0,
+            Rplayer2.addComponent(new Robot());
+            com.saveandstudio.mario.cdd.Prefabs.Player Rplayer3 = new com.saveandstudio.mario.cdd.Prefabs.Player(0, new Transform(new Vector3(GameViewInfo.centerW, GameViewInfo.centerH - 650, 0), 0,
                     Vector3.one), false, 3);
-            Rplayer3.addComponent(new AiPlayer());
+            Rplayer3.addComponent(new Robot());
 
             //show card button
             GameObject showCardButton = new GameObject(new Transform(new Vector3(GameViewInfo.centerW + 120, GameViewInfo.centerH + 310, 100), 0,
@@ -81,7 +80,7 @@ public class Scene {
             showCardButton.addComponent(new AutoPivot());
             showCardButton.addComponent(new BoxCollider());
             showCardButton.addComponent(new AutoCollider());
-            showCardButton.addComponent(new ShowCardButton((HandCardManager) Rplayer1.getComponent(HandCardManager.class)));
+            showCardButton.addComponent(new ShowCardButton((Player) Rplayer1.getComponent(Player.class)));
             //pass button
             GameObject passButton = new GameObject(new Transform(new Vector3(GameViewInfo.centerW - 120, GameViewInfo.centerH + 310, 100), 0,
                     new Vector3((float) 1.5, (float) 1.5, 1), Vector3.zero));
@@ -89,7 +88,7 @@ public class Scene {
             passButton.addComponent(new AutoPivot());
             passButton.addComponent(new BoxCollider());
             passButton.addComponent(new AutoCollider());
-            passButton.addComponent(new PassButton((HandCardManager) Rplayer1.getComponent(HandCardManager.class)));
+            passButton.addComponent(new PassButton((Player) Rplayer1.getComponent(Player.class)));
             prepared = true;
         }
     }

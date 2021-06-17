@@ -12,9 +12,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telephony.gsm.GsmCellLocation;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -22,12 +20,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.saveandstudio.mario.cdd.Components.Card;
-import com.saveandstudio.mario.cdd.Components.CardSystem;
-import com.saveandstudio.mario.cdd.Components.OtherPlayer;
-import com.saveandstudio.mario.cdd.GameBasic.Decoder;
+import com.saveandstudio.mario.cdd.Components.GameSystem;
 import com.saveandstudio.mario.cdd.GameBasic.Global;
-import com.saveandstudio.mario.cdd.GameBasic.Input;
 import com.saveandstudio.mario.cdd.GameBasic.Physics;
 import com.saveandstudio.mario.cdd.GameBasic.Renderer;
 import com.saveandstudio.mario.cdd.Scenes.Scene;
@@ -37,9 +31,7 @@ import com.saveandstudio.mario.cdd.connect.ConnectThread;
 import com.saveandstudio.mario.cdd.connect.Constant;
 
 import java.io.UnsupportedEncodingException;
-import java.security.DomainLoadStoreParameter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
@@ -409,8 +401,8 @@ public class GameActivity extends AppCompatActivity {
         }
         Scene.getInstance().clear = true;
         Physics.Clear();
-        synchronized (CardSystem.getInstance()) {
-            CardSystem.getInstance().remove();
+        synchronized (GameSystem.getInstance()) {
+            GameSystem.getInstance().remove();
         }
     }
 

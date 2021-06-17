@@ -5,29 +5,25 @@ import android.util.Log;
 import com.saveandstudio.mario.cdd.GameBasic.MonoBehavior;
 
 import com.saveandstudio.mario.cdd.GameBasic.Global;
-import com.saveandstudio.mario.cdd.GameBasic.Decoder;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 import static android.content.ContentValues.TAG;
 
 public class OtherPlayer extends MonoBehavior {
-    HandCardManager manager;
-    public Decoder decoder;
+    Player manager;
     public ArrayList<Card> handCards;
 
     @Override
     public void Start() {
-        manager = (HandCardManager) getComponent(HandCardManager.class);
+        manager = (Player) getComponent(Player.class);
     }
 
     public void Update() {
         if (manager.turn) { // 轮到了这个玩家
             if (!Global.firstHand) { // 不是先手
-                if (CardSystem.getInstance().someOneWin) { // 判断当前牌局是否结束
-                    CardSystem.getInstance().showWinState();
+                if (GameSystem.getInstance().someOneWin) { // 判断当前牌局是否结束
+                    GameSystem.getInstance().showWinState();
                 }
                 if (Global.isSend){ // 判断是否是刚收到信息的那一帧
                     Log.d(TAG, "Update: sendCard"+Global.SendCard);

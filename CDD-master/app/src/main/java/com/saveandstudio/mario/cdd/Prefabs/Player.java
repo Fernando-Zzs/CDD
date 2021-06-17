@@ -1,7 +1,5 @@
 package com.saveandstudio.mario.cdd.Prefabs;
 
-import android.util.Log;
-
 import com.saveandstudio.mario.cdd.Components.*;
 import com.saveandstudio.mario.cdd.GameBasic.*;
 import com.saveandstudio.mario.cdd.R;
@@ -13,12 +11,12 @@ public class Player extends GameObject {
 
     public Player(int direction, Transform transform, boolean isPlayer, int id) {
         super(transform);
-        CardDesk cardDesk = (CardDesk) addComponent(new CardDesk(direction));
+        CardTable cardTable = (CardTable) addComponent(new CardTable(direction));
 
         GameObject pass = new GameObject(new Transform());
         ((Transform) pass.getComponent(Transform.class)).setScale(Vector3.zero);
         Vector3 position = Vector3.lerp(new Vector3(GameViewInfo.centerW, GameViewInfo.centerH - 100, 0), transform.getPosition(), (float) 0.5).add(
-                cardDesk.calculateOutPosition(0, 1, 0));
+                cardTable.calculateOutPosition(0, 1, 0));
         pass.addComponent(new Renderer(R.mipmap.pass));
         pass.addComponent(new TransformToTarget());
         position.z = -120;
@@ -26,6 +24,6 @@ public class Player extends GameObject {
         pass.addComponent(new AutoPivot());
 
 
-        CardSystem.getInstance().addPlayer((HandCardManager) addComponent(new HandCardManager(isPlayer, id, pass)));
+        GameSystem.getInstance().addPlayer((com.saveandstudio.mario.cdd.Components.Player) addComponent(new com.saveandstudio.mario.cdd.Components.Player(isPlayer, id, pass)));
     }
 }

@@ -1,7 +1,6 @@
 package com.saveandstudio.mario.cdd.Components;
 
 import com.saveandstudio.mario.cdd.GameBasic.*;
-import com.saveandstudio.mario.cdd.R;
 import com.saveandstudio.mario.cdd.Renderers.ButtonRenderer;
 
 public class ShowCardButton extends MonoBehavior {
@@ -10,12 +9,12 @@ public class ShowCardButton extends MonoBehavior {
     Transform transform;
     TransformToTarget transformToTarget;
     ButtonRenderer renderer;
-    HandCardManager manager;
+    Player manager;
     private boolean waiting = false;
     private long startWaitTime = 0;
     private long waitTime = 1000;
 
-    public ShowCardButton(HandCardManager manager) {
+    public ShowCardButton(Player manager) {
         this.manager = manager;
     }
 
@@ -30,14 +29,14 @@ public class ShowCardButton extends MonoBehavior {
 
     @Override
     public void Update() {
-        if (CardSystem.getInstance().someOneWin) {
+        if (GameSystem.getInstance().someOneWin) {
             if (manager.turn) {
                 if (!waiting) {
                     startWaitTime = System.currentTimeMillis();
                     waiting = true;
                 } else {
                     if (System.currentTimeMillis() - startWaitTime >= waitTime) {
-                        CardSystem.getInstance().showWinState();
+                        GameSystem.getInstance().showWinState();
                     }
                 }
             }

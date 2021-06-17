@@ -2,28 +2,20 @@ package com.saveandstudio.mario.cdd;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.saveandstudio.mario.cdd.Components.CardSystem;
-import com.saveandstudio.mario.cdd.GameBasic.Decoder;
+import com.saveandstudio.mario.cdd.Components.GameSystem;
 import com.saveandstudio.mario.cdd.GameBasic.Global;
-import com.saveandstudio.mario.cdd.Prefabs.Card;
 
 import java.util.ArrayList;
-import java.util.function.DoubleConsumer;
-
-import static android.content.ContentValues.TAG;
 
 public class CSActivity extends AppCompatActivity {
     private Button mBtn_server;
     private Button mBtn_client;
-    private CardSystem cardSystem = new CardSystem();
+    private GameSystem gameSystem = new GameSystem();
     public static ArrayList<com.saveandstudio.mario.cdd.Prefabs.Card> cards = new ArrayList<>();
 
     @Override

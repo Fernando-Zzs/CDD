@@ -1,14 +1,10 @@
 package com.saveandstudio.mario.cdd.GameBasic;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.saveandstudio.mario.cdd.Components.Card;
-import com.saveandstudio.mario.cdd.Components.CardSystem;
 
 import java.util.ArrayList;
-
-import static android.content.ContentValues.TAG;
 
 public class Global {
     public static Context surfaceContext;

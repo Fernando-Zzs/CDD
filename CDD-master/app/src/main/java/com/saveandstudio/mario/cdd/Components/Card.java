@@ -1,7 +1,7 @@
 package com.saveandstudio.mario.cdd.Components;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
+
 import com.saveandstudio.mario.cdd.GameBasic.MonoBehavior;
 import com.saveandstudio.mario.cdd.GameBasic.Transform;
 import com.saveandstudio.mario.cdd.GameBasic.Vector3;
@@ -13,7 +13,7 @@ public class Card extends MonoBehavior implements Comparable<Card> {
     public int figure;
     public int ID;
     private boolean side = false;
-    private HandCardManager manager;
+    private Player manager;
     public TransformToTarget transformToTarget;
     private Transform transform;
     public Vector3 position;
@@ -173,7 +173,7 @@ public class Card extends MonoBehavior implements Comparable<Card> {
 
     }
 
-    public void setManager(HandCardManager manager) {
+    public void setManager(Player manager) {
         this.manager = manager;
     }
 
@@ -181,7 +181,7 @@ public class Card extends MonoBehavior implements Comparable<Card> {
         this.ID = id;
     }
 
-    public HandCardManager getManager() {
+    public Player getManager() {
         return manager;
     }
 
