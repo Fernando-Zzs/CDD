@@ -50,8 +50,6 @@ public class GameActivity extends AppCompatActivity {
     private Toast newGame_hint;
     private boolean exit = false;
     private static long lastClickTime = System.currentTimeMillis();
-    private ServerActivity serverActivity = new ServerActivity();
-    private ClientActivity clientActivity = new ClientActivity();
     public static final int REQUEST_CODE = 0;
     private List<BluetoothDevice> mDeviceList = new ArrayList<>();
     private List<BluetoothDevice> mBondedDeviceList = new ArrayList<>();
