@@ -35,6 +35,10 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
     private long frameDeltaTime = 16;
 
     Bitmap bmp = BitmapFactory.decodeResource(getResources(),R.drawable.desk);
+    Bitmap player_1 = BitmapFactory.decodeResource(getResources(),R.mipmap.player_1);
+    Bitmap player_2 = BitmapFactory.decodeResource(getResources(),R.mipmap.player_2);
+    Bitmap player_3 = BitmapFactory.decodeResource(getResources(),R.mipmap.player_3);
+    Bitmap player_4 = BitmapFactory.decodeResource(getResources(),R.mipmap.player_4);
 
     public MySurfaceView(Context context) {
         this(context, null);
@@ -84,6 +88,10 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
         try{
             paint.setColor(getResources().getColor(R.color.colorPrimary));
             canvas.drawBitmap(bmp, null, new Rect(0,0,this.getWidth(), this.getHeight()),paint);
+            canvas.drawBitmap(player_1, null, new Rect(145,800,345,1000),paint);
+            canvas.drawBitmap(player_2, null, new Rect(145,20,345,220),paint);
+            canvas.drawBitmap(player_3, null, new Rect(400,20,600,220),paint);
+            canvas.drawBitmap(player_4, null, new Rect(1600,20,1800,220),paint);
             synchronized (Renderer.renderersList){
                 if (Renderer.renderersList != null && !Renderer.clear) {
                     //sort
