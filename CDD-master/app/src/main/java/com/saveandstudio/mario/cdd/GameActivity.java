@@ -325,13 +325,13 @@ public class GameActivity extends AppCompatActivity {
             super.handleMessage(message);
             switch (message.what) {
                 case Constant.MSG_GOT_DATA:
-                    showToast(String.valueOf(message.obj));
                     Log.d(TAG, String.valueOf(message.obj));
                     if (Global.player_id == 1) {
                         Global.client_get_data_count++;
 
                         if (Global.client_get_data_count == 1) {
                             Global.seed = Integer.parseInt(String.valueOf(message.obj));
+                            showToast("成功进入游戏");
                         } else {
                             // 客户端收到服务端发来的 出牌 信息
                             Global.SendCard = String.valueOf(message.obj);

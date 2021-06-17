@@ -28,14 +28,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:background="#397166"
             android:text="托管" />
 
         <Button
             android:id="@+id/btn_cancel_auto_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="取消托管"
             android:layout_margin="10dp"
+            android:text="取消托管"
             android:visibility="gone" />
 
         <TextView
@@ -95,6 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:background="#397166"
             android:text="返回" />
 
 

@@ -90,7 +90,6 @@ public class HandCardManager extends MonoBehavior {
                 card.addComponent(new TouchCardEvents());
                 card.setSide(true);
             }
-            card.setSide(true);
 
             handCards.add(card);
 
