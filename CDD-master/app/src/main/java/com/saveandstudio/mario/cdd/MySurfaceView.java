@@ -88,10 +88,10 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
         try{
             paint.setColor(getResources().getColor(R.color.colorPrimary));
             canvas.drawBitmap(bmp, null, new Rect(0,0,this.getWidth(), this.getHeight()),paint);
-            canvas.drawBitmap(player_1, null, new Rect(145,800,345,1000),paint);
-            canvas.drawBitmap(player_2, null, new Rect(145,20,345,220),paint);
-            canvas.drawBitmap(player_3, null, new Rect(400,20,600,220),paint);
-            canvas.drawBitmap(player_4, null, new Rect(1600,20,1800,220),paint);
+            canvas.drawBitmap(player_1, null, new Rect(440,780,640,980),paint);
+            canvas.drawBitmap(player_2, null, new Rect(10,440,210,640),paint);
+            canvas.drawBitmap(player_3, null, new Rect(440,60,640,260),paint);
+            canvas.drawBitmap(player_4, null, new Rect(2050,440,2250,640),paint);
             synchronized (Renderer.renderersList){
                 if (Renderer.renderersList != null && !Renderer.clear) {
                     //sort
