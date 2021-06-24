@@ -15,7 +15,7 @@ public class AcceptThread extends Thread {
     private static final String NAME = "BlueToothClass";
     private static final UUID MY_UUID = UUID.fromString(Constant.CONNECTTION_UUID);
 
-    private final BluetoothServerSocket mmServerSocket;
+        private final BluetoothServerSocket mmServerSocket;
     private final BluetoothAdapter mBluetoothAdapter;
     private final Handler mHandler;
     private ConnectedThread mConnectedThread;
