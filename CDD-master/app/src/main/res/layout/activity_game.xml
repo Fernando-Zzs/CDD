@@ -8,7 +8,7 @@
     tools:context=".GameActivity">
 
 
-    <com.saveandstudio.mario.cdd.MySurfaceView
+    <com.SCUT.ZZS_YJX_YMX.cdd.MySurfaceView
         android:id="@+id/game_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

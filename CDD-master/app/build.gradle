@@ -7,7 +7,7 @@ android {
     }
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.saveandstudio.mario.cdd"
+        applicationId "com.SCUT.ZZS_YJX_YMX.cdd"
         minSdkVersion 17
         targetSdkVersion 26
         versionCode 1
